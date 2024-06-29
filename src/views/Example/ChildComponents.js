@@ -2,43 +2,45 @@ import React from 'react';
 
 class ChildComponents extends React.Component {
     state = {
-        firstName: '',
-        lastName: '',
+        showJobs: false,
     }
-
-    handleChangeFirstName = (event) => {
+    handleShowHideData = () => {
         this.setState({
-            firstName: event.target.value
+            showJobs: !this.state.showJobs,
         })
     }
 
-    handleChangeLastName = (event) => {
-        this.setState({
-            lastName: event.target.value
-        })
-    }
-
-    handleSubmit = (event) => {
-        event.preventDefault()
-        alert('click me')
-    }
     render() {
-        console.log('>>>>>check props', this.props)
 
-        let { name, age, address, jobs } = this.props
+        let { jobs } = this.props
+        let { showJobs } = this.state
+        console.log(showJobs)
         return (
             <>
-                <div className='job-list'>
-                    {
-                        jobs.map((item, index) => {
-                            return (
-                                <div key={item.id}>
-                                    {item.title} - {item.salary}
-                                </div>
-                            )
-                        })
-                    }
-                </div>
+                {!showJobs ?
+                    <>
+                        <div onClick={() => this.handleShowHideData()}><button>Show</button></div>
+                    </>
+                    :
+                    <>
+                        <div className='job-list'>
+                            {
+                                jobs.map((item, index) => {
+                                    return (
+
+
+                                        <div key={item.id}>
+                                            {item.title} - {item.salary}
+                                        </div>
+
+
+
+                                    )
+                                })
+                            }
+                        </div>
+                        <div onClick={() => this.handleShowHideData()}><button>Hide</button></div>
+                    </>}
             </>
         )
     }
