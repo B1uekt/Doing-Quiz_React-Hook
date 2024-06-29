@@ -14,7 +14,7 @@ class ChildComponents extends React.Component {
 
         let { jobs } = this.props
         let { showJobs } = this.state
-        console.log(showJobs)
+        //console.log(showJobs)
         return (
             <>
                 {!showJobs ?
