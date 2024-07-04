@@ -1,7 +1,8 @@
 import logo from './logo.svg';
 import './App.scss';
-import './Example/MyComponents'
-import MyComponents from './Example/MyComponents';
+import ListTodo from './Todos/ListTodo';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const App = () => {
   return (
@@ -9,11 +10,23 @@ const App = () => {
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         <p>
-          HELLO WORLD WITH REACTJS
+          Simple TODO Apps with ReactJS
         </p>
-
-        <MyComponents />
+        {/* <MyComponents /> */}
+        <ListTodo />
       </header>
+      <ToastContainer
+        position="top-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover={false}
+        theme="light"
+      />
     </div>
   );
 }
