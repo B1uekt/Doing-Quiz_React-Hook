@@ -11,6 +11,7 @@ class ListTodo extends React.Component {
             { id: 'todo3', title: 'Watching TV' },
         ],
         editTodo: '',
+        isDisabledInput: false
     }
     addNewTodo = (todo) => {
         this.setState({
@@ -30,14 +31,14 @@ class ListTodo extends React.Component {
         let editTodoCopy = { ...this.state.editTodo }
         editTodoCopy.title = event.target.value
         this.setState({
-            editTodo: editTodoCopy
+            editTodo: editTodoCopy,
         })
+
     }
     handleEditTodo = (todo) => {
         let { listToDo, editTodo } = this.state
 
         let isEmptyObj = Object.keys(editTodo).length === 0
-
 
 
         if (!isEmptyObj && editTodo.id === todo.id) {
@@ -50,9 +51,10 @@ class ListTodo extends React.Component {
             console.log(listToDoCopy)
             this.setState({
                 listToDo: listToDoCopy,
-                editTodo: ''
-            })
+                editTodo: '',
+                isDisabledInput: false
 
+            })
             return
         }
 
@@ -61,11 +63,15 @@ class ListTodo extends React.Component {
                 editTodo: todo
             })
         }
+        this.setState({
+            isDisabledInput: true
+        })
 
     }
     handleCancelTodo = () => {
         this.setState({
-            editTodo: ''
+            editTodo: '',
+            isDisabledInput: false
         })
     }
     render() {
@@ -75,6 +81,7 @@ class ListTodo extends React.Component {
             <div className="list-todo-container">
                 <AddTodo
                     addNewTodo={this.addNewTodo}
+                    isDisabledInput={this.state.isDisabledInput}
                 />
                 <div className="list-todo-content">
 

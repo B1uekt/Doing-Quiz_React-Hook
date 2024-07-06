@@ -25,9 +25,11 @@ class AddTodo extends React.Component {
     }
     render() {
         let { title } = this.state
+        let { isDisabledInput } = this.props
+        console.log('>>>check disabled: ', isDisabledInput)
         return (
             <div className="add-todo">
-                <input type="text" value={title} onChange={(event) => this.handleChangeTitle(event)} />
+                <input type="text" value={title} disabled={isDisabledInput} onChange={(event) => this.handleChangeTitle(event)} />
                 <button className="add" onClick={() => this.handleSubmit()} >Add</button>
             </div>
         )
