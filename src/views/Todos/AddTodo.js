@@ -1,39 +1,31 @@
-import React from "react";
+import React, { useState } from "react";
 import { toast } from 'react-toastify';
-class AddTodo extends React.Component {
-    state = {
-        title: '',
+
+const AddTodo = (props) => {
+    const [title, setTitle] = useState('')
+
+    let { isDisabledInput } = props
+
+    const handleChangeTitle = (event) => {
+        setTitle(event.target.value)
     }
 
-    handleChangeTitle = (event) => {
-        this.setState({
-            title: event.target.value
-        })
-    }
-    handleSubmit = () => {
-        if (!this.state.title) {
+    const handleSubmit = () => {
+        if (!title) {
             toast.error("Missing Todo's Title")
             return;
         }
-        this.props.addNewTodo({
+        props.addNewTodo({
             id: Math.floor(Math.random() * 1001),
-            title: this.state.title
+            title: title
         })
-        this.setState({
-            title: '',
-        })
+        setTitle('')
     }
-    render() {
-        let { title } = this.state
-        let { isDisabledInput } = this.props
-        // console.log('>>>check disabled: ', isDisabledInput)
-        return (
-            <div className="add-todo">
-                <input type="text" value={title} disabled={isDisabledInput} onChange={(event) => this.handleChangeTitle(event)} />
-                <button className="add" onClick={() => this.handleSubmit()} >Add</button>
-            </div>
-        )
-    }
-
+    return (
+        <div className="add-todo">
+            <input type="text" value={title} disabled={isDisabledInput} onChange={(event) => handleChangeTitle(event)} />
+            <button className="add" onClick={() => handleSubmit()} >Add</button>
+        </div>
+    )
 }
 export default AddTodo;
