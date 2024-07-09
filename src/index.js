@@ -1,13 +1,25 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './styles/global.scss';
-import App from './views/App';
+import App from './App';
 import reportWebVitals from './reportWebVitals';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import User from './components/User/User'
+import Admin from './components/Admin/Admin'
 
 ReactDOM.render(
 
   <React.StrictMode>
-    <App />
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<App />}>
+          <Route path="users" element={<User />}></Route>
+          <Route path="admins" element={<Admin />}></Route>
+        </Route>
+      </Routes>
+    </BrowserRouter>
+
   </React.StrictMode>,
   document.getElementById('root')
 );

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import './ListTodo.scss'
 import AddTodo from './AddTodo'
 import { toast } from 'react-toastify';
@@ -59,6 +59,13 @@ const ListToDo = () => {
         setEditTodo('')
         setHideShowInput(false)
     }
+    useEffect(() => {
+        if (listToDo.length == 0) {
+            alert('Delete all')
+        }
+    }, [listToDo]
+    )
+
 
     return (
 
