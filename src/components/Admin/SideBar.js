@@ -5,10 +5,9 @@ import {
     MenuItem,
     SubMenu,
     SidebarHeader,
-    SidebarFooter,
     SidebarContent,
 } from 'react-pro-sidebar';
-
+import { Link } from 'react-router-dom';
 import { FaTachometerAlt, FaGem, FaReact, FaRegLaughWink } from 'react-icons/fa';
 import sidebarBg from '../../assets/images/bg2.jpg'
 const SideBar = (props) => {
@@ -47,6 +46,7 @@ const SideBar = (props) => {
                         // suffix={<span className="badge red">New</span>}
                         >
                             Dashboard
+                            <Link to="/admins" />
                         </MenuItem>
                         {/* <MenuItem icon={<FaGem />}> components </MenuItem> */}
                     </Menu>
@@ -56,7 +56,9 @@ const SideBar = (props) => {
                             icon={<FaRegLaughWink />}
                             title="Features"
                         >
-                            <MenuItem>Quản lý Users</MenuItem>
+                            <MenuItem >
+                                <Link to="/admins/manage-users " />
+                                Quản lý Users</MenuItem>
                             <MenuItem>Quản lý bài Quiz</MenuItem>
                             <MenuItem>Quản lý câu hỏi</MenuItem>
                         </SubMenu>

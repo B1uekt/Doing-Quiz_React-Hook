@@ -79,12 +79,12 @@ body {
 
         .title-btn {
             button {
-                border-radius: 15px;
                 height: 40px;
                 border-radius: 5px;
                 padding: 0 15px;
                 background-color: rgb(74, 74, 74);
                 color: white;
+                border: none;
 
                 &:hover {
                     transition: 0.6s;

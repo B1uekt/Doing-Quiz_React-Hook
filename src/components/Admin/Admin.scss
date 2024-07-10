@@ -5,6 +5,23 @@
         .pro-sidebar {
             height: 100vh !important
         }
+    }
 
+    .admin-content {
+        width: 100%;
+
+        .admin-header {
+            height: 40px;
+            border: 1px solid green;
+
+            .btn-admin-header {
+                margin: 10px;
+                font-size: 20px;
+            }
+        }
+
+        .admin-main {
+            border: 1px solid red;
+        }
     }
 }
