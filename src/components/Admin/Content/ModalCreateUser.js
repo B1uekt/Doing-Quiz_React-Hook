@@ -43,11 +43,11 @@ const ModalCreateUser = (props) => {
     };
 
     const handleSubmitCreateUser = async () => {
-        const isValidEmail = validateEmail(email);
-        if (!isValidEmail) {
-            toast.error("Invalid Email")
-            return;
-        }
+        // const isValidEmail = validateEmail(email);
+        // if (!isValidEmail) {
+        //     toast.error("Invalid Email")
+        //     return;
+        // }
         if (!password) {
             toast.error("Missing Password")
             return;
@@ -56,14 +56,14 @@ const ModalCreateUser = (props) => {
 
 
 
-        let res = await postCreateNewUser(email, password, username, role, image)
-        console.log(">>>>>check res: ", res.data)
-        if (res.data && res.data.EC === 0) {
-            toast.success(res.data.EM);
+        let data = await postCreateNewUser(email, password, username, role, image)
+        console.log(">>>>>check res: ", data)
+        if (data && data.EC === 0) {
+            toast.success(data.EM);
             handleClose();
         }
-        if (res.data && res.data.EC !== 0) {
-            toast.error(res.data.EM);
+        if (data && data.EC !== 0) {
+            toast.error(data.EM);
         }
     }
     return (
