@@ -1,18 +1,28 @@
 import { useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
-import Pic from '../../../assets/images/test.jpg'
-const ModalCreateUser = () => {
+
+import { toast } from 'react-toastify';
+import { postCreateNewUser } from '../../../services/UserServices'
+
+const ModalCreateUser = (props) => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [username, setUsername] = useState('');
     const [role, setRole] = useState('USER');
     const [image, setImage] = useState('');
     const [previewImg, setPreviewImg] = useState('')
-    const [show, setShow] = useState(false);
+    const { show, setShow } = props;
 
-    const handleClose = () => setShow(false);
-    const handleShow = () => setShow(true);
+    const handleClose = () => {
+        setEmail('')
+        setPassword('')
+        setUsername('')
+        setRole('USER')
+        setImage('')
+        setPreviewImg('')
+        setShow(false)
+    };
     const handleUploadImg = (event) => {
         if (event.target && event.target.files && event.target.files[0]) {
             setPreviewImg(URL.createObjectURL(event.target.files[0]))
@@ -23,11 +33,41 @@ const ModalCreateUser = () => {
         }
 
     }
+
+    const validateEmail = (email) => {
+        return String(email)
+            .toLowerCase()
+            .match(
+                /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|.(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+            );
+    };
+
+    const handleSubmitCreateUser = async () => {
+        const isValidEmail = validateEmail(email);
+        if (!isValidEmail) {
+            toast.error("Invalid Email")
+            return;
+        }
+        if (!password) {
+            toast.error("Missing Password")
+            return;
+        }
+
+
+
+
+        let res = await postCreateNewUser(email, password, username, role, image)
+        console.log(">>>>>check res: ", res.data)
+        if (res.data && res.data.EC === 0) {
+            toast.success(res.data.EM);
+            handleClose();
+        }
+        if (res.data && res.data.EC !== 0) {
+            toast.error(res.data.EM);
+        }
+    }
     return (
         <>
-            <Button variant="primary" onClick={handleShow}>
-                Add new user
-            </Button>
 
             <Modal backdrop="static" show={show} onHide={handleClose} size="xl" className='modal-add-user'>
                 <Modal.Header closeButton>
@@ -75,12 +115,14 @@ const ModalCreateUser = () => {
                     <Button variant="secondary" onClick={handleClose}>
                         Close
                     </Button>
-                    <Button variant="primary" onClick={handleClose}>
+                    <Button variant="primary" onClick={() => handleSubmitCreateUser()}>
                         Save
                     </Button>
                 </Modal.Footer>
             </Modal>
+
         </>
+
     );
 }
 export default ModalCreateUser
