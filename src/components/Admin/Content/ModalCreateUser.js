@@ -8,7 +8,7 @@ import _ from 'lodash'
 
 const ModalCreateUser = (props) => {
     const { dataUpdate, setDataUpdate } = props
-
+    const { pageCount } = props
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [username, setUsername] = useState('');
@@ -74,7 +74,7 @@ const ModalCreateUser = (props) => {
         if (data && data.EC === 0) {
             toast.success(data.EM);
             handleClose();
-            await props.fetchListUser();
+            await props.fetchListUserWithPaginate(pageCount);
         }
         if (data && data.EC !== 0) {
             toast.error(data.EM);
@@ -88,7 +88,8 @@ const ModalCreateUser = (props) => {
         if (data && data.EC === 0) {
             toast.success(data.EM);
             handleClose();
-            await props.fetchListUser();
+            console.log('page count: ', pageCount)
+            await props.fetchListUserWithPaginate(pageCount);
         }
         if (data && data.EC !== 0) {
             toast.error(data.EM);
