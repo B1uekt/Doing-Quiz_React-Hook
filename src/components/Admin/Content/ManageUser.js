@@ -8,9 +8,11 @@ import ModalDeleteUser from "./ModalDeleteUser";
 
 const ManageUser = (props) => {
     const LIMIT_USER = 7;
-    const [pageCount, setPageCount] = useState(0);
+    const [pageCount, setPageCount] = useState(1);
     const [currentPage, setCurrentPage] = useState(1);
+
     const [showModelCreateUser, setShowModalCreateUser] = useState(false)
+
     const [listUser, setListUser] = useState([])
     const [dataUpdate, setDataUpdate] = useState({})
     const [showModelDeleteUser, setShowModalDeleteUser] = useState(false)
@@ -83,14 +85,16 @@ const ManageUser = (props) => {
                     fetchListUserWithPaginate={fetchListUserWithPaginate}
                     dataUpdate={dataUpdate}
                     setDataUpdate={setDataUpdate}
-                    pageCount={pageCount}
-                    setPageCount={setPageCount} />
+                    currentPage={currentPage}
+                    setCurrentPage={setCurrentPage}
+                />
 
                 <ModalDeleteUser
                     show={showModelDeleteUser}
                     setShow={setShowModalDeleteUser}
-                    fetchListUser={fetchListUser}
-                    dataDelete={dataDelete} />
+                    fetchListUserWithPaginate={fetchListUserWithPaginate}
+                    dataDelete={dataDelete}
+                    currentPage={currentPage} />
             </div>
         </div>
     )

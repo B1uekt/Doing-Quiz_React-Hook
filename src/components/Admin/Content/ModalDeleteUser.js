@@ -5,16 +5,16 @@ import { deleteUser } from '../../../services/UserServices';
 import { toast } from 'react-toastify';
 
 const ModalDeleteUser = (props) => {
-    const { show, setShow, dataDelete } = props;
+    const { show, setShow, dataDelete, currentPage } = props;
 
     const handleClose = () => setShow(false);
 
-    const handleSubmitDeleteUse = async () => {
+    const handleSubmitDeleteUser = async () => {
         let data = await deleteUser(dataDelete.id)
         if (data && data.EC === 0) {
             toast.success(data.EM);
             handleClose();
-            await props.fetchListUser();
+            await props.fetchListUserWithPaginate(currentPage);
         }
         if (data && data.EC !== 0) {
             toast.error(data.EM);
@@ -36,7 +36,7 @@ const ModalDeleteUser = (props) => {
                     <Button variant="secondary" onClick={handleClose}>
                         Cancel
                     </Button>
-                    <Button variant="primary" onClick={() => handleSubmitDeleteUse()}>
+                    <Button variant="primary" onClick={() => handleSubmitDeleteUser()}>
                         Confirm
                     </Button>
                 </Modal.Footer>

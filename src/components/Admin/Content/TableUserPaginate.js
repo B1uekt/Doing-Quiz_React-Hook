@@ -2,7 +2,7 @@ import ReactPaginate from "react-paginate"
 
 
 const TableUserPaginate = (props) => {
-    const { listUser, pageCount, setCurrentPage } = props
+    const { listUser, pageCount, currentPage, setCurrentPage } = props
 
 
     const handlePageClick = (event) => {
@@ -10,11 +10,7 @@ const TableUserPaginate = (props) => {
         props.fetchListUserWithPaginate(+event.selected + 1)
 
         console.log(`User requested page number ${event.selected + 1}`);
-        setCurrentPage(() => {
-            const newCurrentPage = event.selected + 1;
-            console.log(`Updated current page to: ${newCurrentPage}`); // Log within the callback
-            return newCurrentPage;
-        });
+        setCurrentPage(event.selected + 1)
     };
 
     return (
@@ -78,6 +74,7 @@ const TableUserPaginate = (props) => {
                     containerClassName="pagination"
                     activeClassName="active"
                     renderOnZeroPageCount={null}
+                    forcePage={currentPage - 1}
                 />
             </div>
         </>

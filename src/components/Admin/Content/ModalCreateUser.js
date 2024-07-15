@@ -3,12 +3,11 @@ import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import { toast } from 'react-toastify';
 import { postCreateNewUser, pustUpdateUser } from '../../../services/UserServices'
-import _ from 'lodash'
+import _, { set } from 'lodash'
 
 
 const ModalCreateUser = (props) => {
-    const { dataUpdate, setDataUpdate } = props
-    const { pageCount } = props
+    const { dataUpdate, setDataUpdate, currentPage, setCurrentPage } = props
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [username, setUsername] = useState('');
@@ -74,7 +73,8 @@ const ModalCreateUser = (props) => {
         if (data && data.EC === 0) {
             toast.success(data.EM);
             handleClose();
-            await props.fetchListUserWithPaginate(pageCount);
+            setCurrentPage(1);
+            await props.fetchListUserWithPaginate(1);
         }
         if (data && data.EC !== 0) {
             toast.error(data.EM);
@@ -88,8 +88,8 @@ const ModalCreateUser = (props) => {
         if (data && data.EC === 0) {
             toast.success(data.EM);
             handleClose();
-            console.log('page count: ', pageCount)
-            await props.fetchListUserWithPaginate(pageCount);
+            console.log('page: ', currentPage)
+            await props.fetchListUserWithPaginate(currentPage);
         }
         if (data && data.EC !== 0) {
             toast.error(data.EM);
