@@ -2,8 +2,8 @@ import { useEffect, useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import { toast } from 'react-toastify';
-import { postCreateNewUser, pustUpdateUser } from '../../../services/UserServices'
-import _, { set } from 'lodash'
+import { postCreateNewUser, putUpdateUser } from '../../../services/UserServices'
+import _ from 'lodash'
 
 
 const ModalCreateUser = (props) => {
@@ -83,12 +83,12 @@ const ModalCreateUser = (props) => {
 
     const handleSubmitUpdateUser = async () => {
 
-        let data = await pustUpdateUser(dataUpdate.id, username, role, image)
-        console.log(">>>>>check res: ", data)
+        let data = await putUpdateUser(dataUpdate.id, username, role, image)
+        //console.log(">>>>>check res: ", data)
         if (data && data.EC === 0) {
             toast.success(data.EM);
             handleClose();
-            console.log('page: ', currentPage)
+            //console.log('page: ', currentPage)
             await props.fetchListUserWithPaginate(currentPage);
         }
         if (data && data.EC !== 0) {
@@ -134,7 +134,7 @@ const ModalCreateUser = (props) => {
                         <div className="col-md-4">
                             <label className="form-label">Role</label>
                             <select id="inputState" className="form-select" onChange={(event) => setRole(event.target.value)} value={role}>
-                                <option selected value="USER">USER</option>
+                                <option value="USER">USER</option>
                                 <option value="ADMIN">ADMIN</option>
                             </select>
                         </div>
@@ -152,7 +152,7 @@ const ModalCreateUser = (props) => {
                         <div className='col-md-12 img-preview'>
                             {previewImg ?
 
-                                <img src={previewImg} />
+                                <img alt="" src={previewImg} />
                                 :
                                 <span>Preview Image</span>
                             }
