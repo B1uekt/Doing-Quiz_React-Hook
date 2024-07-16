@@ -10,7 +10,7 @@ const ManageUser = (props) => {
     const LIMIT_USER = 7;
     const [pageCount, setPageCount] = useState(1);
     const [currentPage, setCurrentPage] = useState(1);
-
+    const [isViewUser, setViewUser] = useState(false)
     const [showModelCreateUser, setShowModalCreateUser] = useState(false)
 
     const [listUser, setListUser] = useState([])
@@ -50,6 +50,12 @@ const ManageUser = (props) => {
         setDataUpdate(user);
 
     }
+    const handleViewBtn = (user) => {
+        setShowModalCreateUser(true);
+        setDataUpdate(user);
+        setViewUser(true)
+    }
+
     const handleDeleteBtn = (user) => {
         setShowModalDeleteUser(true);
         setDataDelete(user)
@@ -71,10 +77,13 @@ const ManageUser = (props) => {
                     <TableUserPaginate listUser={listUser}
                         handleEditBtn={handleEditBtn}
                         handleDeleteBtn={handleDeleteBtn}
+                        handleViewBtn={handleViewBtn}
                         fetchListUserWithPaginate={fetchListUserWithPaginate}
                         pageCount={pageCount}
                         currentPage={currentPage}
                         setCurrentPage={setCurrentPage}
+                        isViewUser={isViewUser}
+                        setViewUser={setViewUser}
                     />
 
                 </div>
@@ -87,6 +96,8 @@ const ManageUser = (props) => {
                     setDataUpdate={setDataUpdate}
                     currentPage={currentPage}
                     setCurrentPage={setCurrentPage}
+                    isViewUser={isViewUser}
+                    setViewUser={setViewUser}
                 />
 
                 <ModalDeleteUser

@@ -7,7 +7,7 @@ import _ from 'lodash'
 
 
 const ModalCreateUser = (props) => {
-    const { dataUpdate, setDataUpdate, currentPage, setCurrentPage } = props
+    const { dataUpdate, setDataUpdate, currentPage, setCurrentPage, isViewUser, setViewUser } = props
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [username, setUsername] = useState('');
@@ -37,6 +37,7 @@ const ModalCreateUser = (props) => {
         setImage('')
         setPreviewImg('')
         setShow(false)
+        setViewUser(false)
         setDataUpdate({})
     };
     const handleUploadImg = (event) => {
@@ -129,16 +130,21 @@ const ModalCreateUser = (props) => {
                         </div>
                         <div className="col-md-6">
                             <label className="form-label">Username</label>
-                            <input type="text" className="form-control" value={username} onChange={(event) => setUsername(event.target.value)} />
+                            <input
+                                type="text"
+                                disabled={isViewUser}
+                                className="form-control"
+                                value={username}
+                                onChange={(event) => setUsername(event.target.value)} />
                         </div>
                         <div className="col-md-4">
                             <label className="form-label">Role</label>
-                            <select id="inputState" className="form-select" onChange={(event) => setRole(event.target.value)} value={role}>
+                            <select disabled={isViewUser} id="inputState" className="form-select" onChange={(event) => setRole(event.target.value)} value={role}>
                                 <option value="USER">USER</option>
                                 <option value="ADMIN">ADMIN</option>
                             </select>
                         </div>
-                        <div className='col-md-12'>
+                        {isViewUser ? '' : <div className='col-md-12'>
                             <label className="form-label">
                                 Image
                                 <input
@@ -148,7 +154,8 @@ const ModalCreateUser = (props) => {
 
                                 </input>
                             </label>
-                        </div>
+                        </div>}
+
                         <div className='col-md-12 img-preview'>
                             {previewImg ?
 
@@ -164,9 +171,15 @@ const ModalCreateUser = (props) => {
                     <Button variant="secondary" onClick={handleClose}>
                         Close
                     </Button>
-                    <Button variant="primary" onClick={_.isEmpty(dataUpdate) ? () => handleSubmitCreateUser() : () => handleSubmitUpdateUser()} >
-                        Save
-                    </Button>
+                    {isViewUser
+                        ?
+                        ''
+                        :
+                        <Button variant="primary" onClick={_.isEmpty(dataUpdate) ? () => handleSubmitCreateUser() : () => handleSubmitUpdateUser()} >
+                            Save
+                        </Button>
+                    }
+
                 </Modal.Footer>
             </Modal>
 
