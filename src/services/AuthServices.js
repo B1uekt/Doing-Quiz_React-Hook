@@ -4,6 +4,13 @@ const postLogin = (UserEmail, UserPassword) => {
     return axios.post('api/v1/login', { email: UserEmail, password: UserPassword })
 }
 
+const postRegister = (email, username, password) => {
+    const data = new FormData();
+    data.append('email', email);
+    data.append('username', username);
+    data.append('password', password);
+    return axios.post('api/v1/register', data)
+}
 
 
-export { postLogin }
+export { postLogin, postRegister }

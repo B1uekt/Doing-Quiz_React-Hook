@@ -40,6 +40,17 @@
 
         .form-group {
             padding: 10px 0;
+
+            &.pass-group {
+                position: relative;
+
+                .icons-eye {
+                    cursor: pointer;
+                    position: absolute;
+                    right: 10px;
+                    bottom: 0px;
+                }
+            }
         }
 
         span {

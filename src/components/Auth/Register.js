@@ -1,19 +1,21 @@
 import { useState } from 'react'
 import './Login.scss'
 import { useNavigate } from 'react-router-dom'
-import { postLogin } from '../../services/AuthServices'
+import { postRegister } from '../../services/AuthServices'
 import { toast } from 'react-toastify';
 import { FaRegEyeSlash, FaEye } from 'react-icons/fa';
 
-const Login = () => {
+
+const Register = () => {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
+    const [username, setUsername] = useState('')
     const navigate = useNavigate();
     const [isShowPassword, setShowPassword] = useState(false)
+
     const handleBackHomePage = () => {
         navigate('/')
     }
-
     const validateEmail = (email) => {
         return String(email)
             .toLowerCase()
@@ -22,7 +24,7 @@ const Login = () => {
             );
     };
 
-    const handleSubmitLogin = async () => {
+    const handleSubmit = async () => {
 
         const isValidEmail = validateEmail(email);
         if (!isValidEmail) {
@@ -34,31 +36,30 @@ const Login = () => {
             return;
         }
 
-        let res = await postLogin(email, password)
+        let res = await postRegister(email, username, password)
         // console.log(res)
         if (res && res.EC === 0) {
-            navigate('/')
+            navigate('/login')
             toast.success(res.EM);
         }
         if (res && res.EC !== 0) {
             toast.error(res.EM);
         }
     }
-
-    const handleCreateAcc = () => {
-        navigate('/signup')
+    const handleLogin = () => {
+        navigate('/login')
     }
     return (
         <div className="login-container">
             <div className='header d-flex justify-content-end'>
-                <span>Don't have account yet ? </span>
-                <button className="btn-signup" onClick={() => handleCreateAcc()}>Sign Up</button>
+                <span>Already have an account yet ? </span>
+                <button className="btn-signup" onClick={() => handleLogin()}>Log In </button>
             </div>
             <div className='title mx-auto'>
                 <span>React</span>
             </div>
             <div className='welcome mx-auto'>
-                Hello, who's this ?
+                Start your journey
             </div>
             <div className='content col-3 mx-auto'>
                 <div className="form-group">
@@ -67,6 +68,14 @@ const Login = () => {
                         value={email}
                         onChange={(event) => setEmail(event.target.value)}
                         type='email'
+                        className='form-control mt-2' ></input>
+                </div>
+                <div className="form-group">
+                    <label>Username: </label>
+                    <input
+                        value={username}
+                        onChange={(event) => setUsername(event.target.value)}
+                        type='text'
                         className='form-control mt-2' ></input>
                 </div>
                 <div className="form-group pass-group">
@@ -84,7 +93,7 @@ const Login = () => {
                 </div>
                 <span>Forgot password ? </span>
                 <div>
-                    <button className="btn-submit my-4" onClick={() => handleSubmitLogin()}>Log in</button>
+                    <button className="btn-submit my-4" onClick={() => handleSubmit()}>Log in</button>
                 </div>
                 <div className='text-center back'>
                     <span onClick={() => handleBackHomePage()} className='text-decoration-none'> &#60;&#60; Go to Homepage </span>
@@ -94,4 +103,4 @@ const Login = () => {
         </div>
     )
 }
-export default Login 
+export default Register
