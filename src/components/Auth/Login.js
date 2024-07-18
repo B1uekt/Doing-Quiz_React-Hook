@@ -4,8 +4,12 @@ import { useNavigate } from 'react-router-dom'
 import { postLogin } from '../../services/AuthServices'
 import { toast } from 'react-toastify';
 import { FaRegEyeSlash, FaEye } from 'react-icons/fa';
+import { useDispatch } from 'react-redux';
+import { doLogin } from '../../redux/action/userAction';
 
 const Login = () => {
+    const dispatch = useDispatch()
+
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const navigate = useNavigate();
@@ -37,6 +41,7 @@ const Login = () => {
         let res = await postLogin(email, password)
         // console.log(res)
         if (res && res.EC === 0) {
+            dispatch(doLogin(res))
             navigate('/')
             toast.success(res.EM);
         }
