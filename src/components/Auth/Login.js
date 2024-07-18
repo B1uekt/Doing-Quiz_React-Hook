@@ -6,6 +6,8 @@ import { toast } from 'react-toastify';
 import { FaRegEyeSlash, FaEye } from 'react-icons/fa';
 import { useDispatch } from 'react-redux';
 import { doLogin } from '../../redux/action/userAction';
+import { ImSpinner } from "react-icons/im";
+
 
 const Login = () => {
     const dispatch = useDispatch()
@@ -14,6 +16,8 @@ const Login = () => {
     const [password, setPassword] = useState('')
     const navigate = useNavigate();
     const [isShowPassword, setShowPassword] = useState(false)
+    const [isLoading, setIsLoading] = useState(false)
+
     const handleBackHomePage = () => {
         navigate('/')
     }
@@ -37,16 +41,19 @@ const Login = () => {
             toast.error("Missing Password")
             return;
         }
-
+        setIsLoading(true)
         let res = await postLogin(email, password)
         // console.log(res)
         if (res && res.EC === 0) {
             dispatch(doLogin(res))
-            navigate('/')
+            setIsLoading(false)
+            // navigate('/')
             toast.success(res.EM);
         }
         if (res && res.EC !== 0) {
+            setIsLoading(false)
             toast.error(res.EM);
+            // setIsLoading(false)
         }
     }
 
@@ -89,7 +96,12 @@ const Login = () => {
                 </div>
                 <span>Forgot password ? </span>
                 <div>
-                    <button className="btn-submit my-4" onClick={() => handleSubmitLogin()}>Log in</button>
+                    <button
+                        className="btn-submit my-4"
+                        onClick={() => handleSubmitLogin()} disabled={isLoading} >
+                        {isLoading === true && <ImSpinner className='loader-icon' />}
+                        <span>Log in</span>
+                    </button>
                 </div>
                 <div className='text-center back'>
                     <span onClick={() => handleBackHomePage()} className='text-decoration-none'> &#60;&#60; Go to Homepage </span>

@@ -1,4 +1,21 @@
 .login-container {
+    .loader-icon {
+        animation: spin-animation 0.5s infinite;
+        display: inline-block;
+        margin-right: 5px;
+        color: #0b56c0
+    }
+
+    @keyframes spin-animation {
+        0% {
+            transform: rotate(0deg);
+        }
+
+        100% {
+            transform: rotate(359deg);
+        }
+    }
+
     .header {
         height: 70px;
         padding: 0 100px;
@@ -65,6 +82,18 @@
             background: black;
             color: white;
             height: 40px;
+            text-decoration-line: none;
+
+            &:disabled {
+                cursor: no-drop;
+                background-color: #939393;
+                color: #4c4c4c;
+                border: none
+            }
+
+            span {
+                text-decoration-line: none;
+            }
         }
 
         .back {
