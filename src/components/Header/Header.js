@@ -8,7 +8,7 @@ const Header = () => {
     const isAuthenticated = useSelector(state => state.user.isAuthenticated)
     const account = useSelector(state => state.user.account)
 
-    console.log('accont: ', account, 'isAuthenticated', isAuthenticated)
+    //console.log('accont: ', account, 'isAuthenticated', isAuthenticated)
 
 
     const navigate = useNavigate();
