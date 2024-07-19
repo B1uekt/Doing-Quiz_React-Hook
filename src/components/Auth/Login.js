@@ -47,7 +47,7 @@ const Login = () => {
         if (res && res.EC === 0) {
             dispatch(doLogin(res))
             setIsLoading(false)
-            // navigate('/')
+            navigate('/')
             toast.success(res.EM);
         }
         if (res && res.EC !== 0) {

@@ -2,10 +2,17 @@ import axios from 'axios';
 import nProgress from 'nprogress';
 
 
+nProgress.configure({
+    showSpinner: false,
+    trickleSpeed: 100
+})
+
 const instance = axios.create({
     baseURL: 'http://localhost:8081/',
 
 });
+
+
 instance.interceptors.request.use(function (config) {
     nProgress.start();
     // Do something before request is sent
