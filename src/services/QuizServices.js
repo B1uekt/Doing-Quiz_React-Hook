@@ -3,4 +3,7 @@ import axios from '../utils/axiosCustomize';
 const getQuizByUser = () => {
     return axios.get('api/v1/quiz-by-participant');
 }
-export { getQuizByUser }
+const getDataQuiz = (quizId) => {
+    return axios.get(`api/v1/questions-by-quiz?quizId=${quizId}`);
+}
+export { getQuizByUser, getDataQuiz }
