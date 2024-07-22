@@ -1,20 +1,45 @@
 import './ManageQuiz.scss'
 import Select from 'react-select';
 import React, { useState } from 'react';
+import { postCreateNewQuiz } from '../../../../services/QuizServices';
+import { toast } from 'react-toastify';
+import { FaPlus } from "react-icons/fa";
+
 const ManageQuiz = () => {
     const options = [
-        { value: 'EASY', label: 'EASY' },
+        { value: 'EASY', label: 'EASY' }, ,
         { value: 'MEDIUM', label: 'MEDIUM' },
         { value: 'HARD', label: 'HARD' },
     ];
 
     const [name, setName] = useState('')
-    const [desciption, setDesciption] = useState('')
-    const [type, setType] = useState('EASY')
-    const [image, setImg] = useState(null)
+    const [description, setDesciption] = useState('')
+    const [type, setType] = useState({ value: 'EASY', label: 'EASY' })
+    const [image, setImage] = useState('')
 
-    const handleChangeFile = () => {
+    const handleChangeFile = (event) => {
+        if (event.target && event.target.files && event.target.files[0]) {
+            setImage(event.target.files[0])
+            // console.log(event.target.files[0].name)
+        }
+    }
 
+    const handleSubmitQuiz = async () => {
+        let res = await postCreateNewQuiz(description, name, type?.value, image)
+
+        if (!name || !description) {
+            toast.error('Name/Description is required')
+        }
+        if (res && res.EC === 0) {
+            setName('')
+            setDesciption('')
+            setType({ value: 'EASY', label: 'EASY' })
+            setImage(null)
+            toast.success(res.EM);
+        }
+        if (res && res.EC !== 0) {
+            toast.error(res.EM);
+        }
     }
     return (
 
@@ -41,27 +66,38 @@ const ManageQuiz = () => {
                         <input
                             type="text"
                             className="form-control"
-                            placeholder="desciption"
-                            value={desciption}
+                            placeholder="description"
+                            value={description}
                             onChange={(event) => setDesciption(event.target.value)} />
                         <label>Description</label>
                     </div>
                     <div className='my-3'>
                         <Select
-                            // defaultValue={type}
-                            // onChange={() => setType()}
+                            defaultValue={type.value}
+                            onChange={setType}
                             options={options}
-                            placeholder={type}
+                            placeholder={type.value}
                         />
                     </div>
-                    <div className='more-actions'>
-                        <label className="form-label mb-2">
+                    <div className='more-actions d-flex'>
+                        {/* <label className="form-label mb-2">
                             Upload Image</label>
                         <input
                             className="form-control"
                             type="file"
-                            onChange={() => handleChangeFile()}
-                        />
+                            onChange={(event) => handleChangeFile(event)}
+                        /> */}
+
+                        <label className='form-label mb-2 label-upload d-flex' htmlFor='labelUpload'>
+                            <FaPlus /> Upload File Image
+
+                        </label>
+                        {image && <span className='mb-2 ml-2'> {image.name} </span>}
+
+                        <input type="file" id="labelUpload" hidden onChange={(event) => handleChangeFile(event)} />
+                    </div>
+                    <div className='mt-3'>
+                        <button onClick={() => handleSubmitQuiz()} className='btn btn-warning'>Save</button>
                     </div>
                 </fieldset>
             </div>

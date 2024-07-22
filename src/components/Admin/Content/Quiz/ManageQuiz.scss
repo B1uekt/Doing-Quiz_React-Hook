@@ -9,4 +9,26 @@
     legend {
         font-size: 13px;
     }
+
+    .more-actions {
+        .label-upload {
+            cursor: pointer;
+            border: 1px solid #ccc;
+            height: 25px;
+            width: fit-content;
+            background: #727171;
+            color: white;
+            gap: 5px;
+            align-items: center;
+            border-radius: 5px;
+
+            padding: 5px;
+
+            svg {
+                color: rgb(118, 231, 98);
+            }
+        }
+
+        align-items: center;
+    }
 }
