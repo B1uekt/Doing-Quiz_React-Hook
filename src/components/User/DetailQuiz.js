@@ -141,7 +141,9 @@ const DetailQuiz = (props) => {
 
                     <button className='btn btn-secondary' onClick={() => handlePrev()}>Prev</button>
                     <button className='btn btn-primary ' onClick={() => handleNext()}>Next</button>
-                    <button className='btn btn-warning ' onClick={() => handleFinish()}>Finish</button>
+                    {+index === dataQuiz.length - 1 &&
+                        <button className='btn btn-warning ' onClick={() => handleFinish()}>Finish</button>
+                    }
                 </div>
             </div>
             <div className="right-content">
