@@ -20,4 +20,8 @@ const postCreateNewQuiz = (description, quizName, difficulty, image) => {
     return axios.post(`api/v1/quiz`, data);
 }
 
-export { getQuizByUser, getDataQuiz, postAnswers, postCreateNewQuiz }
+const getAllQuiz = () => {
+    return axios.get(`api/v1/quiz/all`)
+}
+
+export { getQuizByUser, getDataQuiz, postAnswers, postCreateNewQuiz, getAllQuiz }
