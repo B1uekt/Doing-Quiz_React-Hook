@@ -17,21 +17,29 @@
                 border: 1px solid #ccc;
                 height: 25px;
                 width: fit-content;
-                background: #727171;
-                color: white;
+                background: #ced4da;
                 gap: 5px;
                 align-items: center;
-                border-radius: 5px;
 
                 padding: 5px;
 
                 svg {
-                    color: rgb(118, 231, 98);
+                    color: rgb(76, 175, 80);
                 }
             }
 
+            color: #212529;
             align-items: center;
+            width: 100%;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+
+            span {
+                margin: 0 10px;
+            }
         }
+
+
     }
 
     .list-detail {

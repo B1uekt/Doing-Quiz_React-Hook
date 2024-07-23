@@ -21,7 +21,7 @@ const ModalCreateUser = (props) => {
             setEmail(dataUpdate.email)
             setUsername(dataUpdate.username)
             setRole(dataUpdate.role)
-            setImage('')
+            setImage(dataUpdate.image)
             if (dataUpdate.image) {
                 setPreviewImg(`data:image/jpeg;base64,${dataUpdate.image}`)
             }
@@ -83,7 +83,7 @@ const ModalCreateUser = (props) => {
     }
 
     const handleSubmitUpdateUser = async () => {
-
+        console.log(image)
         let data = await putUpdateUser(dataUpdate.id, username, role, image)
         //console.log(">>>>>check res: ", data)
         if (data && data.EC === 0) {
@@ -144,7 +144,7 @@ const ModalCreateUser = (props) => {
                                 <option value="ADMIN">ADMIN</option>
                             </select>
                         </div>
-                        {isViewUser ? '' : <div className='col-md-12'>
+                        <div className='col-md-12'>
                             <label className="form-label">
                                 Image
                                 <input
@@ -154,7 +154,7 @@ const ModalCreateUser = (props) => {
 
                                 </input>
                             </label>
-                        </div>}
+                        </div>
 
                         <div className='col-md-12 img-preview'>
                             {previewImg ?

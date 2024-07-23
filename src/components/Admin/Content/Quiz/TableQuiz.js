@@ -1,22 +1,25 @@
-import { useEffect, useState } from "react"
-import { getAllQuiz } from "../../../../services/QuizServices";
+import { useState } from "react"
 import { IoMdTrash } from "react-icons/io";
 import { FaPencilAlt } from "react-icons/fa";
-const TableQuiz = () => {
+import ModalDeleteQuiz from "./ModalDeleteQuiz";
+import ModalUpdateQuiz from "./ModalUpdateQuiz";
+const TableQuiz = (props) => {
 
-    const [listQuiz, setListQuiz] = useState([]);
+    const { listQuiz } = props
+    const [showModalDeleteQuiz, setShowModalDeleteQuiz] = useState(false)
+    const [dataQuizDelete, setDataQuizDelete] = useState({})
+    const [showModalUpdateQuiz, setShowModalUpdateQuiz] = useState(false)
+    const [dataQuizUpdate, setDataQuizUpdate] = useState({})
 
-    useEffect(() => {
-        fetchListQuiz()
-    }, [])
 
-    const fetchListQuiz = async () => {
-        let res = await getAllQuiz()
-        if (res && res.EC === 0) {
-            setListQuiz(res.DT)
-            // console.log(res.DT)
-        }
+    const handleDeleteQuizBtn = (item) => {
+        setShowModalDeleteQuiz(true)
+        setDataQuizDelete(item)
+    }
 
+    const handleUpdateQuizBtn = (item) => {
+        setShowModalUpdateQuiz(true)
+        setDataQuizUpdate(item)
     }
     return (
         <>
@@ -34,25 +37,42 @@ const TableQuiz = () => {
                     </tr>
                 </thead>
                 <tbody>
-                    {listQuiz && listQuiz.length &&
+                    {listQuiz && listQuiz.length > 0 &&
                         listQuiz.map((item, index) => {
                             return (
-                                <tr>
-                                    <th key={`table-quiz-${index}`} scope="row">{item.id}</th>
+                                <tr key={`table-quiz-${index}`}>
+                                    <td>{item.id}</td>
                                     <td>{item.name}</td>
                                     <td>{item.description}</td>
                                     <td>{item.difficulty}</td>
                                     <td className="action-icon d-flex">
-                                        <span >{<FaPencilAlt />}</span>
-                                        <span><IoMdTrash /></span>
-
+                                        <span onClick={() => handleUpdateQuizBtn(item)}>{<FaPencilAlt />}</span>
+                                        <span onClick={() => handleDeleteQuizBtn(item)}>{<IoMdTrash />}</span>
                                     </td>
                                 </tr>
                             )
-                        })
+                        }
+                        )
                     }
+                    {listQuiz && listQuiz.length === 0
+                        && <tr>
+                            <td colSpan={4}>Not Found Data</td>
+                        </tr>}
                 </tbody>
-            </table></>
+            </table>
+            <ModalDeleteQuiz
+                show={showModalDeleteQuiz}
+                setShow={setShowModalDeleteQuiz}
+                dataDelete={dataQuizDelete}
+                fetchListQuiz={props.fetchListQuiz}
+            />
+            <ModalUpdateQuiz
+                show={showModalUpdateQuiz}
+                setShow={setShowModalUpdateQuiz}
+                dataUpdate={dataQuizUpdate}
+                fetchListQuiz={props.fetchListQuiz}
+            />
+        </>
     )
 }
 export default TableQuiz

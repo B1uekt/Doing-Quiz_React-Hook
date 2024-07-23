@@ -1,13 +1,29 @@
 import './ManageQuiz.scss'
 import Select from 'react-select';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { postCreateNewQuiz } from '../../../../services/QuizServices';
 import { toast } from 'react-toastify';
 import { FaPlus } from "react-icons/fa";
 import TableQuiz from './TableQuiz';
 import Accordion from 'react-bootstrap/Accordion';
+import { getAllQuiz } from "../../../../services/QuizServices";
 
 const ManageQuiz = () => {
+
+    const [listQuiz, setListQuiz] = useState([]);
+
+    useEffect(() => {
+        fetchListQuiz()
+    }, [])
+
+    const fetchListQuiz = async () => {
+        let res = await getAllQuiz()
+        if (res && res.EC === 0) {
+            setListQuiz(res.DT)
+            // console.log(res.DT)
+        }
+
+    }
     const options = [
         { value: 'EASY', label: 'EASY' },
         { value: 'MEDIUM', label: 'MEDIUM' },
@@ -33,6 +49,7 @@ const ManageQuiz = () => {
             toast.error('Name/Description is required')
         }
         if (res && res.EC === 0) {
+            fetchListQuiz()
             setName('')
             setDesciption('')
             setType({ value: 'EASY', label: 'EASY' })
@@ -85,7 +102,7 @@ const ManageQuiz = () => {
                                         placeholder={type.value}
                                     />
                                 </div>
-                                <div className='more-actions d-flex'>
+                                <div className='more-actions d-flex mt-4'>
                                     {/* <label className="form-label mb-2">
                                         Upload Image</label>
                                     <input
@@ -94,13 +111,14 @@ const ManageQuiz = () => {
                                         onChange={(event) => handleChangeFile(event)}
                                     /> */}
 
-                                    <label className='form-label mb-2 label-upload d-flex' htmlFor='labelUpload'>
+                                    <label className='label-upload d-flex' htmlFor='labelUpload'>
                                         <FaPlus /> Upload File Image
 
                                     </label>
-                                    {image && <span className='mb-2 ml-2'> {image.name} </span>}
+                                    <span className=''>{image ? image.name : 'No file was chosen'}</span>
 
                                     <input type="file" id="labelUpload" hidden onChange={(event) => handleChangeFile(event)} />
+
                                 </div>
                                 <div className='mt-3'>
                                     <button onClick={() => handleSubmitQuiz()} className='btn btn-warning'>Save</button>
@@ -111,7 +129,9 @@ const ManageQuiz = () => {
                 </Accordion.Item>
             </Accordion>
             <div className="list-detail">
-                <TableQuiz />
+                <TableQuiz
+                    listQuiz={listQuiz}
+                    fetchListQuiz={fetchListQuiz} />
             </div>
         </div>
     )
