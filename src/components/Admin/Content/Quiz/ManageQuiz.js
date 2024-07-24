@@ -3,7 +3,7 @@ import Select from 'react-select';
 import React, { useEffect, useState } from 'react';
 import { postCreateNewQuiz } from '../../../../services/QuizServices';
 import { toast } from 'react-toastify';
-import { FaPlus } from "react-icons/fa";
+import { BiSolidFolderPlus } from "react-icons/bi"
 import TableQuiz from './TableQuiz';
 import Accordion from 'react-bootstrap/Accordion';
 import { getAllQuiz } from "../../../../services/QuizServices";
@@ -102,7 +102,7 @@ const ManageQuiz = () => {
                                         placeholder={type.value}
                                     />
                                 </div>
-                                <div className='more-actions d-flex mt-4'>
+                                <div className='more-actions d-flex mt-4 col-6'>
                                     {/* <label className="form-label mb-2">
                                         Upload Image</label>
                                     <input
@@ -112,7 +112,7 @@ const ManageQuiz = () => {
                                     /> */}
 
                                     <label className='label-upload d-flex' htmlFor='labelUpload'>
-                                        <FaPlus /> Upload File Image
+                                        <BiSolidFolderPlus /> Upload File Image
 
                                     </label>
                                     <span className=''>{image ? image.name : 'No file was chosen'}</span>

@@ -37,7 +37,7 @@ const Question = (props) => {
                                         onChange={(event) => handleHandleCheckBox(event, a.id, data.questionId)}
                                     />
                                     <label className="form-check-label" >
-                                        A.{a.description}
+                                        {a.description}
                                     </label>
                                 </div>
 

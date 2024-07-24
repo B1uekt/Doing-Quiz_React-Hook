@@ -1,0 +1,102 @@
+.questions-container {
+    padding: 15px;
+
+    .title {
+        margin-bottom: 15px;
+        font-size: 20px;
+        font-weight: 600;
+    }
+
+
+    .add-new-questions {
+        .question-content {
+            .more-actions {
+                .label-upload {
+                    cursor: pointer;
+                    border: 1px solid #ccc;
+                    height: 35px;
+                    width: fit-content;
+                    background: #ced4da;
+                    gap: 5px;
+                    align-items: center;
+                    border-radius: 5px;
+                    padding: 5px;
+
+                    svg {
+                        color: rgb(76, 175, 80);
+                    }
+                }
+
+                color: #212529;
+                align-items: center;
+
+                span {
+                    margin: 0 10px;
+                }
+            }
+
+            .btn-add-new-question {
+                display: flex;
+
+                gap: 10px;
+
+                .icon-add {
+                    color: green;
+                    font-size: 24px;
+
+                    &:hover {
+                        cursor: pointer;
+                    }
+                }
+
+
+                .icon-remove {
+                    color: red;
+                    font-size: 24px;
+
+                    &:hover {
+                        cursor: pointer;
+                    }
+                }
+            }
+
+            gap:25px;
+            align-items: center;
+        }
+
+        .answer-content {
+            gap: 10px;
+            align-items: center;
+
+            .answer {
+                width: 100%;
+            }
+
+            .btn-add-new-question {
+                display: flex;
+
+                gap: 10px;
+
+                .icon-add {
+                    color: green;
+                    font-size: 24px;
+
+                    &:hover {
+                        cursor: pointer;
+                    }
+                }
+
+
+                .icon-remove {
+                    color: red;
+                    font-size: 24px;
+
+                    &:hover {
+                        cursor: pointer;
+                    }
+                }
+            }
+        }
+
+    }
+}

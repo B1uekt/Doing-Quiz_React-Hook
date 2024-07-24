@@ -1,7 +1,7 @@
 import { Route, Routes } from "react-router-dom";
 
 import App from '../App';
-import User from '../components/User/User'
+// import User from '../components/User/User'
 import Admin from '../components/Admin/Admin'
 import HomePage from '../components/Home/Homepage';
 import ManageUser from '../components/Admin/Content/ManageUser';
@@ -13,6 +13,7 @@ import Register from "../components/Auth/Register";
 import ListQuiz from "../components/User/ListQuiz";
 import DetailQuiz from "../components/User/DetailQuiz";
 import ManageQuiz from "../components/Admin/Content/Quiz/ManageQuiz";
+import ManageQuestions from "../components/Admin/Content/Questions/ManageQuestions";
 
 const NotFound = () => {
     return (
@@ -36,6 +37,7 @@ const WebLayout = () => {
                     <Route index element={<Dashboard />}></Route>
                     <Route path="manage-users" element={<ManageUser />}></Route>
                     <Route path="manage-quiz" element={<ManageQuiz />}></Route>
+                    <Route path="manage-questions" element={<ManageQuestions />}></Route>
                 </Route>
 
                 <Route path="/login" element={<Login />}></Route>
