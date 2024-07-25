@@ -13,17 +13,12 @@
             .more-actions {
                 .label-upload {
                     cursor: pointer;
-                    border: 1px solid #ccc;
-                    height: 35px;
-                    width: fit-content;
-                    background: #ced4da;
-                    gap: 5px;
-                    align-items: center;
-                    border-radius: 5px;
-                    padding: 5px;
+                    color: rgb(29 89 168);
+                    font-size: 24px;
 
-                    svg {
-                        color: rgb(76, 175, 80);
+                    &:hover {
+                        color: rgb(43 125 234);
+                        transition: all 0.4s ease;
                     }
                 }
 
@@ -31,7 +26,7 @@
                 align-items: center;
 
                 span {
-                    margin: 0 10px;
+                    margin: 0 5px;
                 }
             }
 

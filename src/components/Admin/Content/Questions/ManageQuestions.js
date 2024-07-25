@@ -6,6 +6,9 @@ import { BsPatchPlusFill } from "react-icons/bs";
 import { BsFillPatchMinusFill } from "react-icons/bs";
 import { TbHexagonMinusFilled } from "react-icons/tb";
 import { TbHexagonPlusFilled } from "react-icons/tb";
+import { v4 as uuidv4 } from 'uuid';
+import _ from 'lodash';
+
 const ManageQuestions = () => {
     const options = [
         { value: 'chocolate', label: 'Chocolate' },
@@ -20,6 +23,72 @@ const ManageQuestions = () => {
             // console.log(event.target.files[0].name)
         }
     }
+
+    const [questions, setQuestions] = useState([
+        {
+            id: uuidv4(),
+            description: 'question 1',
+            imageFile: '',
+            imageName: '',
+            answers: [
+                {
+                    id: uuidv4(),
+                    description: 'answer 1',
+                    isCorrect: false,
+                }
+            ]
+        },
+    ])
+
+    const handleAddRemoveQuestion = (type, id) => {
+        if (type === 'ADD') {
+            const newQuestion =
+            {
+                id: uuidv4(),
+                description: '',
+                imageFile: '',
+                imageName: '',
+                answers: [
+                    {
+                        id: uuidv4(),
+                        description: '',
+                        isCorrect: false,
+                    }
+                ]
+            }
+            setQuestions([...questions, newQuestion])
+        }
+        if (type === 'REMOVE') {
+            let questionsClone = _.cloneDeep(questions);
+            questionsClone = questionsClone.filter(item => item.id !== id)
+            setQuestions(questionsClone)
+        }
+    }
+
+    const handleAddRemoveAnswer = (type, questionId, answerId) => {
+        let questionClone = _.cloneDeep(questions);
+        let index = questionClone.findIndex(item => item.id === questionId)
+        if (type === 'ADD') {
+            const newAnswer =
+            {
+
+                id: uuidv4(),
+                description: '',
+                isCorrect: false,
+            }
+            // console.log("index: ", index)
+            questionClone[index].answers.push(newAnswer)
+            setQuestions(questionClone)
+
+        }
+        if (type === 'REMOVE') {
+            // console.log("questionClone[index]: ", questionClone[index])
+            questionClone[index].answers = questionClone[index].answers.filter(item => item.id !== answerId)
+            setQuestions(questionClone)
+        }
+    }
+
+    // console.log(questions)
     return (
         <div className="questions-container">
             <div className="title">
@@ -37,51 +106,73 @@ const ManageQuestions = () => {
                 <div className='mt-3 mb-2'>
                     Add New Question
                 </div>
-                <div>
-                    <div className='question-content d-flex mb-3'>
-                        <div className="form-floating col-6">
-                            <input type="text" className="form-control" placeholder="name@example.com" />
-                            <label>Description</label>
-                        </div>
-                        <div className='more-actions d-flex'>
-                            <label className='label-upload d-flex' htmlFor='labelUpload'>
-                                <BiSolidFolderPlus /> Upload File Image
-                            </label>
-                            <span className=''>{questionImage ? '1 file is uploaded' : '0 file is uploaded'}</span>
+                {
+                    questions && questions.length > 0 &&
+                    questions.map((item, index) => {
+                        return (
+                            <div key={`question-id${index}`} className='q-main mb-4'>
+                                <div className='question-content d-flex mb-3'>
+                                    <div className="form-floating col-6">
+                                        <input type="text" className="form-control" placeholder="name@example.com" value={item.description} />
+                                        <label>Question {index + 1}'s description</label>
+                                    </div>
+                                    <div className='more-actions d-flex'>
+                                        <label className='label-upload d-flex' htmlFor='labelUpload'>
+                                            <BiSolidFolderPlus />
+                                        </label>
+                                        <span className=''>{questionImage ? '1 file is uploaded' : '0 file is uploaded'}</span>
 
-                            <input type="file" id="labelUpload" hidden onChange={(event) => handleChangeFile(event)} />
+                                        <input type="file" id="labelUpload" hidden onChange={(event) => handleChangeFile(event)} />
 
-                        </div>
-                        <div className='btn-add-new-question'>
-                            <span className='icon-add'>
-                                <BsPatchPlusFill />
-                            </span>
-                            <span className='icon-remove'>
-                                <BsFillPatchMinusFill />
-                            </span>
-                        </div>
+                                    </div>
+                                    <div className='btn-add-new-question'>
+                                        <span onClick={() => handleAddRemoveQuestion('ADD', '')} className='icon-add'>
+                                            <BsPatchPlusFill />
+                                        </span>
+                                        {questions.length > 1 &&
+                                            <span onClick={() => handleAddRemoveQuestion('REMOVE', item.id)} className='icon-remove'>
+                                                <BsFillPatchMinusFill />
+                                            </span>
+                                        }
 
-                    </div>
-                    <div className='answer-content d-flex col-6'>
-                        <input
-                            className="form-check-input"
-                            type="checkbox"
-                            id="flexCheckDefault"
-                        />
-                        <div className="form-floating answer">
-                            <input type="text" className="form-control" placeholder="name@example.com" />
-                            <label>Answer 1</label>
-                        </div>
-                        <div className='btn-add-new-question'>
-                            <span className='icon-add'>
-                                <TbHexagonPlusFilled />
-                            </span>
-                            <span className='icon-remove'>
-                                <TbHexagonMinusFilled />
-                            </span>
-                        </div>
-                    </div>
-                </div>
+                                    </div>
+
+                                </div>
+                                {item.answers && item.answers.length > 0 &&
+                                    item.answers.map((answer, index) => {
+                                        return (
+                                            <div key={answer.id} className='answer-content mb-3 d-flex col-6'>
+                                                <input
+                                                    className="form-check-input"
+                                                    type="checkbox"
+                                                    id="flexCheckDefault"
+                                                />
+                                                <div className="form-floating answer">
+                                                    <input type="text" className="form-control" placeholder="name@example.com"
+                                                        value={answer.description}
+                                                    />
+                                                    <label>Answer {index + 1}</label>
+                                                </div>
+                                                <div className='btn-add-new-question'>
+                                                    <span onClick={() => handleAddRemoveAnswer('ADD', item.id, '')} className='icon-add'>
+                                                        <TbHexagonPlusFilled />
+                                                    </span>
+                                                    {
+                                                        item.answers.length > 1 &&
+                                                        <span onClick={() => handleAddRemoveAnswer('REMOVE', item.id, answer.id)} className='icon-remove'>
+                                                            <TbHexagonMinusFilled />
+                                                        </span>
+                                                    }
+                                                </div>
+                                            </div>
+                                        )
+                                    })
+                                }
+                            </div>
+                        )
+                    })
+                }
+
             </div>
         </div>
     )
