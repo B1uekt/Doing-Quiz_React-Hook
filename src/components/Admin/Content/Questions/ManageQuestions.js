@@ -1,32 +1,19 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Select from 'react-select';
 import './ManageQuestions.scss'
 import { BiSolidFolderPlus } from "react-icons/bi"
-import { BsPatchPlusFill } from "react-icons/bs";
-import { BsFillPatchMinusFill } from "react-icons/bs";
-import { TbHexagonMinusFilled } from "react-icons/tb";
-import { TbHexagonPlusFilled } from "react-icons/tb";
+import { BsPatchPlusFill, BsFillPatchMinusFill } from "react-icons/bs";
+import { TbHexagonMinusFilled, TbHexagonPlusFilled } from "react-icons/tb";
 import { v4 as uuidv4 } from 'uuid';
 import _ from 'lodash';
+import Lightbox from "react-awesome-lightbox";
+import { getAllQuiz } from "../../../../services/QuizServices";
+import { postCreateNewQuestionForQuiz, postCreateNewAnswerForQuestion } from '../../../../services/QuestionServices';
+import { toast } from 'react-toastify';
+
 
 const ManageQuestions = () => {
-    const options = [
-        { value: 'chocolate', label: 'Chocolate' },
-        { value: 'strawberry', label: 'Strawberry' },
-        { value: 'vanilla', label: 'Vanilla' },
-    ];
-    const [selectedQuiz, setSelectedQuiz] = useState({})
-    const handleChangeFile = (questionId, event) => {
-        let questionClone = _.cloneDeep(questions);
-        let index = questionClone.findIndex(item => item.id === questionId)
-        if (index > -1 && event.target && event.target.files && event.target.files[0]) {
-            questionClone[index].imageFile = event.target.files[0];
-            questionClone[index].imageName = event.target.files[0].name;
-            setQuestions(questionClone)
-        }
-    }
-
-    const [questions, setQuestions] = useState([
+    const initQuestion = [
         {
             id: uuidv4(),
             description: '',
@@ -39,8 +26,47 @@ const ManageQuestions = () => {
                     isCorrect: false,
                 }
             ]
-        },
-    ])
+        }]
+    const [questions, setQuestions] = useState(initQuestion)
+
+    const [isPreviewImage, setIsPreviewImage] = useState(false);
+
+    const [dataImagePreview, setDataImagePreview] = useState({
+        title: '',
+        url: ','
+    })
+
+    const [listQuiz, setListQuiz] = useState([])
+    const [selectedQuiz, setSelectedQuiz] = useState({})
+
+    useEffect(() => {
+        fetchListQuiz()
+    }, [])
+
+    const fetchListQuiz = async () => {
+        let res = await getAllQuiz()
+        if (res && res.EC === 0) {
+            let newQuiz = res.DT.map(item => {
+                return {
+                    value: item.id,
+                    label: `${item.id} - ${item.description}`
+                }
+            })
+            setListQuiz(newQuiz)
+            // console.log(res.DT)
+        }
+
+    }
+
+    const handleChangeFile = (questionId, event) => {
+        let questionClone = _.cloneDeep(questions);
+        let index = questionClone.findIndex(item => item.id === questionId)
+        if (index > -1 && event.target && event.target.files && event.target.files[0]) {
+            questionClone[index].imageFile = event.target.files[0];
+            questionClone[index].imageName = event.target.files[0].name;
+            setQuestions(questionClone)
+        }
+    }
 
     const handleAddRemoveQuestion = (type, id) => {
         if (type === 'ADD') {
@@ -120,9 +146,61 @@ const ManageQuestions = () => {
             setQuestions(questionClone)
         }
     }
-    const handleSubmitQuestion = () => {
-        console.log('questions: ', questions)
+    const handleSubmitQuestion = async () => {
+        // console.log('questions: ', questions, selectedQuiz)
+        if (_.isEmpty(selectedQuiz)) {
+            toast.error("Please choose a Quiz !")
+            return;
+        }
+
+        let flag = 1;
+        for (let i = 0; i < questions.length; i++) {
+            if (!questions[i].description || questions[i].description.trim().length === 0) {
+                toast.error(`Not Empty at Question ${i + 1}`);
+                flag = 0;
+                break;
+            }
+            for (let j = 0; j < questions[i].answers.length; j++) {
+                if (!questions[i].answers[j].description || questions[i].answers[j].description.trim().length === 0) {
+                    flag = 0
+                    toast.error(`Not Empty Answer ${j + 1} at Question ${i + 1}`);
+                    break;
+                }
+            }
+            if (flag === 0) break
+        }
+        if (flag === 0) return;
+        const createQuestionsAndAnswers = async (questions) => {
+            for (const question of questions) {
+                const q = await postCreateNewQuestionForQuiz(+selectedQuiz.value, question.description, question.imageFile);
+                console.log(">>>check q: ", q);
+
+
+                for (const answer of question.answers) {
+                    await postCreateNewAnswerForQuestion(answer.description, answer.isCorrect, q.DT.id);
+                    // console.log(answer.description, answer.isCorrect, q.DT.id)
+                    // console.log(">>>check a: ", a);
+                };
+            }
+        }
+
+        createQuestionsAndAnswers(questions);
+        toast.success('Create Question and Answer succeed!')
+        setQuestions(initQuestion)
     }
+
+    const handlePreviewImage = (questionId) => {
+        let questionClone = _.cloneDeep(questions);
+        let indexQuestion = questionClone.findIndex(item => item.id === questionId)
+        if (indexQuestion > -1) {
+            setDataImagePreview({
+                url: URL.createObjectURL(questionClone[indexQuestion].imageFile),
+                title: questionClone[indexQuestion].imageName
+            })
+            setIsPreviewImage(true)
+        }
+    }
+
     return (
         <div className="questions-container">
             <div className="title">
@@ -134,7 +212,7 @@ const ManageQuestions = () => {
                     <Select
                         value={selectedQuiz}
                         onChange={setSelectedQuiz}
-                        options={options}
+                        options={listQuiz}
                     />
                 </div>
                 <div className='mt-3 mb-2'>
@@ -159,7 +237,7 @@ const ManageQuestions = () => {
                                         <label htmlFor={`${item.id}`} className='label-upload d-flex' >
                                             <BiSolidFolderPlus />
                                         </label>
-                                        <span className=''>{item.imageFile ? item.imageName : '0 file is uploaded'}</span>
+                                        <span >{item.imageFile ? <span onClick={() => handlePreviewImage(item.id)}> {item.imageName} </span> : '0 file is uploaded'}</span>
 
                                         <input type="file" id={`${item.id}`} hidden onChange={(event) => handleChangeFile(item.id, event)} />
 
@@ -213,6 +291,7 @@ const ManageQuestions = () => {
                                         )
                                     })
                                 }
+
                             </div>
                         )
                     })
@@ -223,7 +302,12 @@ const ManageQuestions = () => {
                         <button className='btn btn-warning' onClick={() => handleSubmitQuestion()}>Lưu</button>
                     </div>
                 }
+                {
+                    isPreviewImage === true && <Lightbox image={dataImagePreview.url} title={dataImagePreview.title} onClose={() => setIsPreviewImage(false)}></Lightbox>
+                }
             </div>
+
+
         </div>
     )
 
