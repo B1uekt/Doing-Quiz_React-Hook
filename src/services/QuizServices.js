@@ -37,4 +37,8 @@ const putUpdateQuiz = (id, description, quizName, difficulty, image) => {
     data.append('quizImage', image);
     return axios.put('api/v1/quiz', data)
 }
-export { getQuizByUser, getDataQuiz, postAnswers, postCreateNewQuiz, getAllQuiz, deleteQuiz, putUpdateQuiz }
+
+const postAssignQuiz = (quizId, userId) => {
+    return axios.post(`api/v1/quiz-assign-to-user`, { quizId, userId });
+}
+export { getQuizByUser, getDataQuiz, postAnswers, postCreateNewQuiz, getAllQuiz, deleteQuiz, putUpdateQuiz, postAssignQuiz }

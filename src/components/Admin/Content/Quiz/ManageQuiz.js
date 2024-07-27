@@ -7,6 +7,9 @@ import { BiSolidFolderPlus } from "react-icons/bi"
 import TableQuiz from './TableQuiz';
 import Accordion from 'react-bootstrap/Accordion';
 import { getAllQuiz } from "../../../../services/QuizServices";
+// import QuizQA from './QuizQA';
+import AssignQuiz from './AssignQuiz';
+import ManageQuestions from '../Questions/ManageQuestions';
 
 const ManageQuiz = () => {
 
@@ -125,14 +128,28 @@ const ManageQuiz = () => {
                                 </div>
                             </fieldset>
                         </div>
+                        <div className="list-detail">
+                            <TableQuiz
+                                listQuiz={listQuiz}
+                                fetchListQuiz={fetchListQuiz} />
+                        </div>
+                    </Accordion.Body>
+                </Accordion.Item>
+                <Accordion.Item eventKey="1">
+                    <Accordion.Header>Update Q/A Quizzes</Accordion.Header>
+                    <Accordion.Body>
+                        <ManageQuestions />
+                    </Accordion.Body>
+                </Accordion.Item>
+                <Accordion.Item eventKey="2">
+                    <Accordion.Header>Assign to Users</Accordion.Header>
+                    <Accordion.Body>
+                        <AssignQuiz
+                        />
                     </Accordion.Body>
                 </Accordion.Item>
             </Accordion>
-            <div className="list-detail">
-                <TableQuiz
-                    listQuiz={listQuiz}
-                    fetchListQuiz={fetchListQuiz} />
-            </div>
+
         </div>
     )
 }
