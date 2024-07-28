@@ -41,4 +41,15 @@ const putUpdateQuiz = (id, description, quizName, difficulty, image) => {
 const postAssignQuiz = (quizId, userId) => {
     return axios.post(`api/v1/quiz-assign-to-user`, { quizId, userId });
 }
-export { getQuizByUser, getDataQuiz, postAnswers, postCreateNewQuiz, getAllQuiz, deleteQuiz, putUpdateQuiz, postAssignQuiz }
+
+const getQuizwithQA = (quizId) => {
+    return axios.get(`api/v1/quiz-with-qa/${quizId}`);
+}
+
+const postUpsertQA = (data) => {
+    return axios.post(`api/v1/quiz-upsert-qa`, { ...data });
+}
+export {
+    getQuizByUser, getDataQuiz, postAnswers, postCreateNewQuiz,
+    getAllQuiz, deleteQuiz, putUpdateQuiz, postAssignQuiz, getQuizwithQA, postUpsertQA
+}
