@@ -254,7 +254,6 @@ const QuizQA = () => {
             setIsPreviewImage(true)
         }
     }
-    console.log('check question: ', questions)
     return (
         <div className="questions-container">
             <div className="title">

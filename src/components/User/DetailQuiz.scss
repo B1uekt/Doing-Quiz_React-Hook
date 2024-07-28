@@ -59,6 +59,46 @@
         border: 1px solid #ccc;
         width: 30%;
         border-radius: 5px;
-        padding: 20px
+        padding: 20px;
+
+        .main-timer {
+            border-bottom: 1px solid #ccc;
+            padding-bottom: 23px;
+            text-align: center;
+            padding-top: 10px;
+            font-weight: 600;
+            font-size: 20px;
+        }
+
+        .main-questions {
+            gap: 10px;
+            flex-wrap: wrap;
+            padding: 10px 20px;
+            float: left;
+
+            .question {
+                border: 1px solid #ccc;
+                border-radius: 50%;
+                height: 40px;
+                width: 40px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                margin: 10px;
+                cursor: pointer;
+
+                &:hover {
+                    color: white;
+                    background-color: rgb(82, 82, 82);
+                    transition: ease-in 0.3s
+                }
+            }
+
+            .choose {
+                color: white;
+                background-color: rgb(82, 82, 82);
+                transition: ease-in 0.3s
+            }
+        }
     }
 }
