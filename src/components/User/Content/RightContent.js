@@ -1,14 +1,24 @@
 import CountDown from "./CountDown";
 
 const RightContent = (props) => {
+
     const { dataQuiz } = props
     // console.log("check", dataQuiz)
-    const handleChooseQuestion = (index) => {
-        props.setIndex(index);
-    }
+
 
     const onTimeUp = () => {
         props.handleFinish();
+    }
+
+
+    const getClassQuestion = (question) => {
+        if (question && question.answers.length > 0) {
+            let isAnswered = question.answers.find(a => a.isSelected === true)
+            if (isAnswered) {
+                return "question choosed"
+            }
+        }
+        return "question";
     }
 
     return (
@@ -23,8 +33,9 @@ const RightContent = (props) => {
                         {dataQuiz.map((item, index) => (
                             <div
                                 key={`question-${index + 1}`}
-                                onClick={() => handleChooseQuestion(index)}
-                                className={props.index === index ? "question choose" : "question"}
+                                onClick={() => props.setIndex(index)}
+                                className={`${getClassQuestion(item)} ${props.index === index ? "clicked" : ""}`}
+                            // className={getClassQuestion(item)}
                             >
                                 <span>{index + 1}</span>
                             </div>
