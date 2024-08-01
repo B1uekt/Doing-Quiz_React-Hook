@@ -7,10 +7,14 @@ import WebLayout from './routes/WebLayout';
 import { Provider } from 'react-redux';
 import { store, persistor } from './redux/store';
 import { PersistGate } from 'redux-persist/integration/react'
+import i18n from './utils/i18n';
 import 'react-perfect-scrollbar/dist/css/styles.css';
 import 'nprogress/nprogress.css'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import "react-awesome-lightbox/build/style.css";
+import './utils/i18n'
+
+
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 

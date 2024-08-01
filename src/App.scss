@@ -18,6 +18,13 @@ body {
     }
 }
 
+.languages {
+    .dropdown-toggle::after {
+        display: none !important;
+    }
+}
+
+
 .app-container {
     .header-container {
         .navbar-expand-lg {

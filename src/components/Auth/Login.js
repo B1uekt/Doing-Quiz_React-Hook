@@ -7,6 +7,7 @@ import { FaRegEyeSlash, FaEye } from 'react-icons/fa';
 import { useDispatch } from 'react-redux';
 import { doLogin } from '../../redux/action/userAction';
 import { ImSpinner } from "react-icons/im";
+import Language from '../Header/Language';
 
 
 const Login = () => {
@@ -72,6 +73,7 @@ const Login = () => {
             <div className='header d-flex justify-content-end'>
                 <span>Don't have account yet ? </span>
                 <button className="btn-signup" onClick={() => handleCreateAcc()}>Sign Up</button>
+                <Language />
             </div>
             <div className='title mx-auto'>
                 <span>React</span>

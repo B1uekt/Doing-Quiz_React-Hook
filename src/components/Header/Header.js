@@ -7,6 +7,7 @@ import { NavLink, useNavigate } from "react-router-dom";
 import { postLogOut } from '../../services/AuthServices';
 import { toast } from 'react-toastify';
 import { doLogout } from '../../redux/action/userAction';
+import Language from './Language';
 const Header = () => {
     const isAuthenticated = useSelector(state => state.user.isAuthenticated)
     const account = useSelector(state => state.user.account)
@@ -62,7 +63,7 @@ const Header = () => {
                                 <NavDropdown.Item onClick={() => handleLogOut()}>Log out</NavDropdown.Item>
                             </NavDropdown>
                         }
-
+                        <Language />
                     </Nav>
                 </Navbar.Collapse>
             </Container>
