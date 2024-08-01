@@ -60,6 +60,13 @@ const Login = () => {
     const handleCreateAcc = () => {
         navigate('/signup')
     }
+
+    const handleKeyDown = (event) => {
+        console.log("event key: ", event.key)
+        if (event && event.key === 'Enter') {
+            handleSubmitLogin();
+        }
+    }
     return (
         <div className="login-container">
             <div className='header d-flex justify-content-end'>
@@ -87,7 +94,9 @@ const Login = () => {
                         value={password}
                         onChange={(event) => setPassword(event.target.value)}
                         type={isShowPassword ? 'text' : 'password'}
-                        className='form-control mt-2' />
+                        className='form-control mt-2'
+                        onKeyDown={(event) => handleKeyDown(event)}
+                    />
                     {isShowPassword ?
                         <span className='icons-eye' onClick={() => setShowPassword(false)}><FaEye /></span>
                         :

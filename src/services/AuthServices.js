@@ -12,5 +12,9 @@ const postRegister = (email, username, password) => {
     return axios.post('api/v1/register', data)
 }
 
-
-export { postLogin, postRegister }
+const postLogOut = (email, refresh_token) => {
+    return axios.post('api/v1/logout', {
+        email, refresh_token
+    })
+}
+export { postLogin, postRegister, postLogOut }
