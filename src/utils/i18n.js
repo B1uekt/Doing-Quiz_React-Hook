@@ -1,9 +1,13 @@
 import i18n from 'i18next';
 import { initReactI18next } from 'react-i18next';
 import LanguageDetector from 'i18next-browser-languagedetector';
-import HomePage from '../components/Home/Homepage';
+import Backend from 'i18next-http-backend';
 
 i18n
+    // i18next-http-backend
+    // loads translations from your server
+    // https://github.com/i18next/i18next-http-backend
+    .use(Backend)
     // detect user language
     // learn more: https://github.com/i18next/i18next-browser-languageDetector
     .use(LanguageDetector)
@@ -17,36 +21,6 @@ i18n
         interpolation: {
             escapeValue: false, // not needed for react as it escapes by default
         },
-        resources: {
-            en: {
-                translation: {
-                    // here we will place our translations...
-                    HomePage: {
-                        maintitle: "There's a better way to ask",
-                        title: `You don't want to make boring form. 
-                        And your audience won't answer one. 
-                        Create a typeform instead- and make everyone happy.`,
-                        titlebtn: {
-                            login: `Get's started.It's free`,
-                            doquiz: `Doing Quiz Now`
-                        }
-                    }
-                }
-            },
-            vi: {
-                translation: {
-                    // here we will place our translations...
-                    HomePage: {
-                        maintitle: "Có rất nhiều cách để hỏi",
-                        title: `Không biết thì google`,
-                        titlebtn: {
-                            login: `Get's started. It's free`,
-                            doquiz: `Doing Quiz Now`
-                        }
-                    }
-                }
-            },
-        }
     });
 
 export default i18n;

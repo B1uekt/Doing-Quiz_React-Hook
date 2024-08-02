@@ -37,6 +37,7 @@ const DetailQuiz = (props) => {
                             answers.push(item.answers)
                             // console.log('item answers: ', item.answers)
                         })
+                        answers = _.orderBy(answers, ['id'], ['asc']);
                         // console.log('value: ', value, 'key: ', key)
                         return { questionId: key, answers, questionDesciption, image }
                     })

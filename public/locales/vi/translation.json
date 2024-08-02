@@ -1,0 +1,10 @@
+{
+    "HomePage": {
+        "maintitle": "Có rất nhiều cách để hỏi",
+        "title": "Không biết thì google",
+        "titlebtn": {
+            "login": "Bắt đầu",
+            "doquiz": "Làm ngay"
+        }
+    }
+}
