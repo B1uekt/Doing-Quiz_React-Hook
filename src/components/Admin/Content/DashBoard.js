@@ -1,45 +1,44 @@
 import './DashBoard.scss'
 import { BarChart, CartesianGrid, XAxis, YAxis, Tooltip, Legend, Bar, ResponsiveContainer } from 'recharts';
-
+import { getOverView } from '../../../services/DashBoardServices';
+import { useState, useEffect } from 'react';
 
 const Dashboard = (props) => {
-    const data = [
-        {
-            "name": "Page A",
-            "uv": 4000,
-            "pv": 2400
-        },
-        {
-            "name": "Page B",
-            "uv": 3000,
-            "pv": 1398
-        },
-        {
-            "name": "Page C",
-            "uv": 2000,
-            "pv": 9800
-        },
-        {
-            "name": "Page D",
-            "uv": 2780,
-            "pv": 3908
-        },
-        {
-            "name": "Page E",
-            "uv": 1890,
-            "pv": 4800
-        },
-        {
-            "name": "Page F",
-            "uv": 2390,
-            "pv": 3800
-        },
-        {
-            "name": "Page G",
-            "uv": 3490,
-            "pv": 4300
+
+    const [dataOverView, setDataOverView] = useState([])
+    const [dataChart, setDataChart] = useState([])
+
+    useEffect(() => {
+        const fetchDataOverView = async () => {
+            let res = await getOverView()
+            if (res && res.EC === 0) {
+                setDataOverView(res.DT)
+
+                let Qz = 0, Qs = 0, As = 0
+                Qz = res?.DT?.others?.countQuiz ?? 0
+                Qs = res?.DT?.others?.countQuestions ?? 0
+                As = res?.DT?.others?.countAnswers ?? 0
+                const data = [
+                    {
+                        "name": "Quiz",
+                        "Total": Qz,
+
+                    },
+                    {
+                        "name": "Questions",
+                        "Total": Qs,
+                    },
+                    {
+                        "name": "Answers",
+                        "Total": As,
+                    }
+                ]
+                setDataChart(data)
+            }
         }
-    ]
+        fetchDataOverView()
+    }, [])
+
     return (
         <div className="dashboard-container">
             <div className='title'>
@@ -47,30 +46,52 @@ const Dashboard = (props) => {
             </div>
             <hr />
             <div className='dashboard-content d-flex'>
-                <div className='left-content col-5 d-flex'>
+                <div className='left-content d-flex'>
                     <div className='child'>
-                        Total User
+                        <span className='text-1'>Total User</span>
+                        <span className='text-2'>
+                            {
+                                dataOverView && dataOverView.users && dataOverView.users.total ? dataOverView.users.total : 0
+                            }
+                        </span>
                     </div>
                     <div className='child'>
-                        Total Quiz
+                        <span className='text-1'>Total Quiz</span>
+                        <span className='text-2'>
+                            {
+                                dataOverView && dataOverView.others && dataOverView.others.countQuiz ? dataOverView.others.countQuiz : 0
+                            }
+                        </span>
+
                     </div>
                     <div className='child'>
-                        Total Questions
+                        <span className='text-1'>Total Questions</span>
+                        <span className='text-2'>
+                            {
+                                dataOverView && dataOverView.others && dataOverView.others.countQuestions ? dataOverView.others.countQuestions : 0
+                            }
+                        </span>
+
                     </div>
                     <div className='child'>
-                        Total Answers
+                        <span className='text-1'>Total Answers</span>
+                        <span className='text-2'>
+                            {
+                                dataOverView && dataOverView.others && dataOverView.others.countAnswers ? dataOverView.others.countAnswers : 0
+                            }
+                        </span>
+
                     </div>
                 </div>
-                <div className='right-content col-7'>
+                <div className='right-content '>
                     <ResponsiveContainer width="95%" height="100%">
-                        <BarChart data={data}>
+                        <BarChart data={dataChart}>
                             <CartesianGrid strokeDasharray="3 3" />
                             <XAxis dataKey="name" />
                             <YAxis />
                             <Tooltip />
                             <Legend />
-                            <Bar dataKey="pv" fill="#8884d8" />
-                            <Bar dataKey="uv" fill="#82ca9d" />
+                            <Bar dataKey="Total" fill="#8884d8" />
                         </BarChart>
                     </ResponsiveContainer>
                 </div>
