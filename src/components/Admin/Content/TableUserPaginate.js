@@ -1,7 +1,8 @@
 import ReactPaginate from "react-paginate"
-
+import { useTranslation } from 'react-i18next';
 
 const TableUserPaginate = (props) => {
+    const { t } = useTranslation();
     const { listUser, pageCount, currentPage, setCurrentPage } = props
 
 
@@ -19,10 +20,10 @@ const TableUserPaginate = (props) => {
                 <thead>
                     <tr>
                         <th scope="col">ID</th>
-                        <th scope="col">Username</th>
+                        <th scope="col">{t('Admin.Manage-Users.Username')}</th>
                         <th scope="col">Email</th>
-                        <th scope="col">Role</th>
-                        <th scope="col">Action</th>
+                        <th scope="col">{t('Admin.Manage-Users.Role')}</th>
+                        <th scope="col">{t('Admin.Manage-Users.Action')}</th>
                     </tr>
 
 
@@ -38,9 +39,9 @@ const TableUserPaginate = (props) => {
                                     <td>{item.email}</td>
                                     <td>{item.role}</td>
                                     <td>
-                                        <button className="btn btn-secondary" onClick={() => props.handleViewBtn(item)}>View</button>
-                                        <button className="btn btn-warning mx-3" onClick={() => props.handleEditBtn(item)}>Update</button>
-                                        <button className="btn btn-danger" onClick={() => props.handleDeleteBtn(item)}>Delete</button>
+                                        <button className="btn btn-secondary" onClick={() => props.handleViewBtn(item)}>{t('Admin.Manage-Users.View')}</button>
+                                        <button className="btn btn-warning mx-3" onClick={() => props.handleEditBtn(item)}>{t('Admin.Manage-Users.Update')}</button>
+                                        <button className="btn btn-danger" onClick={() => props.handleDeleteBtn(item)}>{t('Admin.Manage-Users.Delete')}</button>
                                     </td>
                                 </tr>
                             )

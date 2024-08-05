@@ -1,6 +1,6 @@
 .detail-quiz-container {
     gap: 20px;
-    padding: 50px;
+    padding: 15px 50px;
 
     .left-content {
         border: 1px solid #ccc;
@@ -108,4 +108,10 @@
 
         }
     }
+}
+
+.link-breadcrumb {
+    height: 50px;
+    margin-top: 30px;
+    padding-left: 50px;
 }

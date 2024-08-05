@@ -2,4 +2,25 @@
     gap: 50px;
     border-radius: 10px;
     flex-wrap: wrap;
+    margin: 15px;
+
+    .card {
+        margin: 15px;
+
+        img {
+            height: 250px;
+        }
+
+        .card-body {
+            height: 180px;
+
+            .btn-start {
+                margin-bottom: 15px;
+            }
+
+            .description-quiz {
+                height: 80px;
+            }
+        }
+    }
 }

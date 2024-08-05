@@ -3,8 +3,9 @@ import Select from 'react-select';
 import { getAllQuiz, postAssignQuiz } from "../../../../services/QuizServices";
 import { getAllUser } from "../../../../services/UserServices";
 import { toast } from 'react-toastify';
-
+import { useTranslation } from 'react-i18next';
 const AssignQuiz = (props) => {
+    const { t } = useTranslation();
     const [listQuiz, setListQuiz] = useState([])
     const [selectedQuiz, setSelectedQuiz] = useState({})
 
@@ -60,7 +61,7 @@ const AssignQuiz = (props) => {
     return (
         <div className="assign-quiz-container row">
             <div className='col-6 form-group'>
-                <label className='mb-2'>Select Quiz:</label>
+                <label className='mb-2'>{t('Admin.Manage-Question.Select-quiz')}:</label>
                 <Select
                     value={selectedQuiz}
                     onChange={setSelectedQuiz}
@@ -68,7 +69,7 @@ const AssignQuiz = (props) => {
                 />
             </div>
             <div className='col-6 form-group'>
-                <label className='mb-2'>Select User:</label>
+                <label className='mb-2'>{t('Admin.Manage-Question.Select-user')}:</label>
                 <Select
                     value={selectedUser}
                     onChange={setSelectedUser}
@@ -76,7 +77,7 @@ const AssignQuiz = (props) => {
                 />
             </div>
             <div>
-                <button onClick={() => handleAssign()} className='btn btn-warning mt-3'>Assign</button>
+                <button onClick={() => handleAssign()} className='btn btn-warning mt-3'>{t('Admin.Manage-Question.Assign')}</button>
             </div>
         </div>
     )

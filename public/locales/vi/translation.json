@@ -1,10 +1,95 @@
 {
     "HomePage": {
         "maintitle": "Có rất nhiều cách để hỏi",
-        "title": "Không biết thì google",
+        "title": "Hãy tạo nên một hình thức mới để mọi người đều hài lòng và trả lời các câu hỏi của bạn. Đừng để nó bị nhàm chán !",
         "titlebtn": {
             "login": "Bắt đầu",
             "doquiz": "Làm ngay"
+        }
+    },
+    "Header": {
+        "title-1": "Trang chủ",
+        "title-2": "Người dùng",
+        "title-3": "Quản trị",
+        "setting": {
+            "title": "Cài Đặt",
+            "login": "Đăng Nhập",
+            "logout": "Đăng Xuất",
+            "signup": "Đăng Kí",
+            "profile": "Hồ Sơ"
+        }
+    },
+    "ListQuiz": {
+        "Start": "Bắt Đầu Ngay",
+        "Home": "Trang chủ",
+        "List-quiz": "Danh sách Quiz"
+    },
+    "Admin": {
+        "SideBar": {
+            "dashBoard": "Tổng Quan",
+            "feature": "Chức Năng",
+            "manage-users": "Quản Lý Người Dùng",
+            "manage-quizzes": "Quản Lý Quizzes",
+            "manage-question": "Quản Lý Câu Hỏi"
+        },
+        "DashBoard": {
+            "Title": "Tổng Quan Phân Tích",
+            "card-1": "Tổng Số Người Dùng",
+            "card-2": "Tổng Số Bài Quizzes",
+            "card-3": "Tổng Số Câu Hỏi",
+            "card-4": "Tổng Số Câu Trả Lời"
+        },
+        "Manage-Users": {
+            "Add": "Thêm Mới Người Dùng",
+            "Username": "Tên Đăng Nhập",
+            "Role": "Vai Trò",
+            "Action": "Hành Động",
+            "View": "Xem",
+            "Update": "Chỉnh Sửa",
+            "Delete": "Xóa",
+            "Modal": {
+                "title-add": "Thêm Mới Người Dùng",
+                "title-update": "Chỉnh Sửa Người Dùng",
+                "title-delete": "Xác Nhận Xóa Người Dùng ?",
+                "passw": "Mật Khẩu",
+                "ques-delete": "Bạn Có Chắc Chắn Rằng Muốn Xóa Người Dùng Email =",
+                "image": "Hình Ảnh",
+                "Prev-img": "Xem Trước Hình Ảnh",
+                "Close": "Đóng",
+                "Save": "Lưu",
+                "Cancel": "Hủy",
+                "Confirm": "Xác Nhận"
+            }
+        },
+        "Manage-Quizzes": {
+            "title-1": "Chỉnh Sửa Câu Hỏi và Câu Trả Lời",
+            "title-2": "Giao Bài Quiz",
+            "List-quiz": "Danh Sách Bài Quiz",
+            "Name": "Tên Bài Quiz",
+            "Description": "Mô Tả",
+            "Type": "Mức Độ",
+            "Add": "Thêm Bài Quiz Mới",
+            "Easy": "Dễ",
+            "Medium": "Trung Bình",
+            "Hard": "Khó",
+            "Upload": "Tải Ảnh Lên",
+            "NoFile": "Không Có File Được Chọn",
+            "Modal": {
+                "Title": "Chỉnh Sửa Quiz",
+                "delete-title": "Xác Nhận Xóa Quiz ?",
+                "qs-delete": "Bạn Có Chắc Chắn Muốn Xóa Bài Quiz Này Không ?"
+            }
+        },
+        "Manage-Question": {
+            "Select-quiz": "Chọn Bài Quiz",
+            "Add-qs": "Thêm Câu Hỏi",
+            "Question": "Câu Hỏi",
+            "Description": ": Mô Tả",
+            "Upload": "file Được Tải Lên",
+            "Answer": "Câu Trả Lời",
+            "Save-qs": "Lưu",
+            "Select-user": "Chọn Người Dùng",
+            "Assign": "Giao"
         }
     }
 }

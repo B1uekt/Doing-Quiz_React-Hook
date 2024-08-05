@@ -9,10 +9,11 @@ import Accordion from 'react-bootstrap/Accordion';
 import { getAllQuiz } from "../../../../services/QuizServices";
 import AssignQuiz from './AssignQuiz';
 // import ManageQuestions from '../Questions/ManageQuestions';
+import { useTranslation } from 'react-i18next';
 import QuizQA from './QuizQA';
 
 const ManageQuiz = () => {
-
+    const { t } = useTranslation();
     const [listQuiz, setListQuiz] = useState([]);
     // const [isUpdateQA, setIsUpdateQA] = useState(false);
     useEffect(() => {
@@ -28,14 +29,14 @@ const ManageQuiz = () => {
 
     }
     const options = [
-        { value: 'EASY', label: 'EASY' },
-        { value: 'MEDIUM', label: 'MEDIUM' },
-        { value: 'HARD', label: 'HARD' },
+        { value: 'EASY', label: `${t('Admin.Manage-Quizzes.Easy')}` },
+        { value: 'MEDIUM', label: `${t('Admin.Manage-Quizzes.Medium')}` },
+        { value: 'HARD', label: `${t('Admin.Manage-Quizzes.Hard')}` },
     ];
 
     const [name, setName] = useState('')
     const [description, setDesciption] = useState('')
-    const [type, setType] = useState({ value: 'EASY', label: 'EASY' })
+    const [type, setType] = useState({ value: 'EASY', label: `${t('Admin.Manage-Quizzes.Easy')}` })
     const [image, setImage] = useState('')
 
     const handleChangeFile = (event) => {
@@ -55,7 +56,7 @@ const ManageQuiz = () => {
             fetchListQuiz()
             setName('')
             setDesciption('')
-            setType({ value: 'EASY', label: 'EASY' })
+            setType({ value: 'EASY', label: `${t('Admin.Manage-Quizzes.Easy')}` })
             setImage(null)
             toast.success(res.EM);
         }
@@ -70,14 +71,14 @@ const ManageQuiz = () => {
                 <Accordion.Item eventKey="0">
                     <Accordion.Header>
                         <div className="title">
-                            Manage Quizzes
+                            {t('Admin.SideBar.manage-quizzes')}
                         </div>
                     </Accordion.Header>
                     <Accordion.Body>
                         <div className="add-new">
 
                             <fieldset className="border rounded-3 p-3">
-                                <legend className="float-none w-auto px-3">Add new Quiz</legend>
+                                <legend className="float-none w-auto px-3">{t('Admin.Manage-Quizzes.Add')}</legend>
                                 <div className="form-floating mb-3">
                                     <input
                                         type="text"
@@ -86,7 +87,7 @@ const ManageQuiz = () => {
                                         value={name}
                                         onChange={(event) => setName(event.target.value)}
                                     />
-                                    <label>Name</label>
+                                    <label>{t('Admin.Manage-Quizzes.Name')}</label>
                                 </div>
                                 <div className="form-floating">
                                     <input
@@ -95,14 +96,14 @@ const ManageQuiz = () => {
                                         placeholder="description"
                                         value={description}
                                         onChange={(event) => setDesciption(event.target.value)} />
-                                    <label>Description</label>
+                                    <label>{t('Admin.Manage-Quizzes.Description')}</label>
                                 </div>
                                 <div className='my-3'>
                                     <Select
                                         defaultValue={type.value}
                                         onChange={setType}
                                         options={options}
-                                        placeholder={type.value}
+                                        placeholder=""
                                     />
                                 </div>
                                 <div className='more-actions d-flex mt-4 col-6'>
@@ -115,16 +116,16 @@ const ManageQuiz = () => {
                                     /> */}
 
                                     <label className='label-upload d-flex' htmlFor='labelUpload'>
-                                        <BiSolidFolderPlus /> Upload File Image
+                                        <BiSolidFolderPlus /> {t('Admin.Manage-Quizzes.Upload')}
 
                                     </label>
-                                    <span className=''>{image ? image.name : 'No file was chosen'}</span>
+                                    <span className=''>{image ? image.name : `${t('Admin.Manage-Quizzes.NoFile')}`}</span>
 
                                     <input type="file" id="labelUpload" hidden onChange={(event) => handleChangeFile(event)} />
 
                                 </div>
                                 <div className='mt-3'>
-                                    <button onClick={() => handleSubmitQuiz()} className='btn btn-warning'>Save</button>
+                                    <button onClick={() => handleSubmitQuiz()} className='btn btn-warning'>{t('Admin.Manage-Users.Modal.Save')}</button>
                                 </div>
                             </fieldset>
                         </div>
@@ -136,14 +137,14 @@ const ManageQuiz = () => {
                     </Accordion.Body>
                 </Accordion.Item>
                 <Accordion.Item eventKey="1">
-                    <Accordion.Header>Update Q/A Quizzes</Accordion.Header>
+                    <Accordion.Header>{t('Admin.Manage-Quizzes.title-1')}</Accordion.Header>
                     <Accordion.Body>
                         <QuizQA />
 
                     </Accordion.Body>
                 </Accordion.Item>
                 <Accordion.Item eventKey="2">
-                    <Accordion.Header>Assign to Users</Accordion.Header>
+                    <Accordion.Header>{t('Admin.Manage-Quizzes.title-2')}</Accordion.Header>
                     <Accordion.Body>
                         <AssignQuiz
                         />

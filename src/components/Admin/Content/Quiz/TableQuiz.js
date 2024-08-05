@@ -3,8 +3,9 @@ import { IoMdTrash } from "react-icons/io";
 import { FaPencilAlt } from "react-icons/fa";
 import ModalDeleteQuiz from "./ModalDeleteQuiz";
 import ModalUpdateQuiz from "./ModalUpdateQuiz";
+import { useTranslation } from 'react-i18next';
 const TableQuiz = (props) => {
-
+    const { t } = useTranslation();
     const { listQuiz } = props
     const [showModalDeleteQuiz, setShowModalDeleteQuiz] = useState(false)
     const [dataQuizDelete, setDataQuizDelete] = useState({})
@@ -30,10 +31,10 @@ const TableQuiz = (props) => {
                 <thead>
                     <tr>
                         <th scope="col">ID</th>
-                        <th scope="col">Name</th>
-                        <th scope="col">Description</th>
-                        <th scope="col">Type</th>
-                        <th scope="col">Action</th>
+                        <th scope="col">{t('Admin.Manage-Quizzes.Name')}</th>
+                        <th scope="col">{t('Admin.Manage-Quizzes.Description')}</th>
+                        <th scope="col">{t('Admin.Manage-Quizzes.Type')}</th>
+                        <th scope="col">{t('Admin.Manage-Users.Action')}</th>
                     </tr>
                 </thead>
                 <tbody>

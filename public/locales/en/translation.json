@@ -6,5 +6,90 @@
             "login": "Get's started.It's free",
             "doquiz": "Doing Quiz Now"
         }
+    },
+    "Header": {
+        "title-1": "Home",
+        "title-2": "Users",
+        "title-3": "Admin",
+        "setting": {
+            "title": "Setting",
+            "login": "Login",
+            "logout": "Logout",
+            "signup": "Signup",
+            "profile": "Profile"
+        }
+    },
+    "ListQuiz": {
+        "Start": "Start Now",
+        "Home": "Home",
+        "List-quiz": "List Quiz"
+    },
+    "Admin": {
+        "SideBar": {
+            "dashBoard": "DashBoard",
+            "feature": "Features",
+            "manage-users": "Manage Users",
+            "manage-quizzes": "Manage Quizzes",
+            "manage-question": "Manage Question"
+        },
+        "DashBoard": {
+            "Title": "Analytics Dashboard",
+            "card-1": "Total User",
+            "card-2": "Total Quizzes",
+            "card-3": "Total Questions",
+            "card-4": "Total Answers"
+        },
+        "Manage-Users": {
+            "Add": "Add New User",
+            "Username": "UserName",
+            "Role": "Role",
+            "Action": "Action",
+            "View": "View",
+            "Update": "Update",
+            "Delete": "Delete",
+            "Modal": {
+                "title-add": "Add New User",
+                "title-update": "Edit User",
+                "title-delete": "Confirm Delete the User ?",
+                "passw": "Password",
+                "ques-delete": "Are you sure to delete this user. ",
+                "image": "Image",
+                "Prev-img": "Preview Image",
+                "Close": "Close",
+                "Save": "Save",
+                "Cancel": "Cancel",
+                "Confirm": "Confirm"
+            }
+        },
+        "Manage-Quizzes": {
+            "title-1": "Update Q/A Quizzes",
+            "title-2": "Assign to Users",
+            "List-quiz": "List Quiz",
+            "Name": "Name",
+            "Description": "Description",
+            "Type": "Type",
+            "Add": "Add New Quiz",
+            "Easy": "EASY",
+            "Medium": "MEDIUM",
+            "Hard": "HARD",
+            "Upload": "Upload File Image",
+            "NoFile": "No file is chosen",
+            "Modal": {
+                "Title": "Edit Quiz",
+                "delete-title": "Confirm Delete the Quiz ?",
+                "qs-delete": "Are you sure to delete this quiz ?"
+            }
+        },
+        "Manage-Question": {
+            "Select-quiz": "Select Quiz",
+            "Add-qs": "Add New Question",
+            "Question": "Question",
+            "Description": "'s Description",
+            "Upload": "file is uploaded",
+            "Answer": "Answer",
+            "Save-qs": "Save Questions",
+            "Select-user": "Select User",
+            "Assign": "Assign"
+        }
     }
 }

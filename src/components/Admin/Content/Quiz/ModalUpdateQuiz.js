@@ -4,9 +4,10 @@ import Modal from 'react-bootstrap/Modal';
 import _ from 'lodash'
 import { putUpdateQuiz } from '../../../../services/QuizServices';
 import { toast } from 'react-toastify';
-
+import { useTranslation } from 'react-i18next';
 
 const ModalUpdateQuiz = (props) => {
+    const { t } = useTranslation();
     const { dataUpdate, show, setShow } = props
     const [name, setName] = useState('');
     const [difficulty, setDifficulty] = useState('');
@@ -52,12 +53,12 @@ const ModalUpdateQuiz = (props) => {
 
             <Modal backdrop="static" show={show} onHide={handleClose} size="xl" className='modal-add-user'>
                 <Modal.Header closeButton>
-                    <Modal.Title>Edit Quiz</Modal.Title>
+                    <Modal.Title>{t('Admin.Manage-Quizzes.Modal.Title')}</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
                     <form className="row g-3">
                         <div className="col-md-6">
-                            <label className="form-label">Name</label>
+                            <label className="form-label">{t('Admin.Manage-Quizzes.Name')}</label>
                             <input
                                 type="email"
                                 className="form-control"
@@ -65,16 +66,16 @@ const ModalUpdateQuiz = (props) => {
                                 onChange={(event) => setName(event.target.value)} />
                         </div>
                         <div className="col-md-6">
-                            <label className="form-label">Type</label>
+                            <label className="form-label">{t('Admin.Manage-Quizzes.Type')}</label>
                             <select id="inputState" className="form-select" onChange={(event) => setDifficulty(event.target.value)} value={difficulty}>
-                                <option value="EASY">EASY</option>
-                                <option value="MEDIUM">MEDIUM</option>
-                                <option value="HARD">HARD</option>
+                                <option value="EASY">{t('Admin.Manage-Quizzes.Easy')}</option>
+                                <option value="MEDIUM">{t('Admin.Manage-Quizzes.Medium')}</option>
+                                <option value="HARD">{t('Admin.Manage-Quizzes.Hard')}</option>
                             </select>
 
                         </div>
                         <div className="col-md-6">
-                            <label className="form-label">Description</label>
+                            <label className="form-label">{t('Admin.Manage-Quizzes.Description')}</label>
                             <input
                                 type="text"
                                 className="form-control"
@@ -83,7 +84,7 @@ const ModalUpdateQuiz = (props) => {
                         </div>
                         <div className='col-md-12'>
                             <label className="form-label">
-                                Image
+                                {t('Admin.Manage-Users.Modal.image')}
                                 <input
                                     className="form-control"
                                     type="file" id="formFile"

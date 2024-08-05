@@ -4,9 +4,10 @@ import Modal from 'react-bootstrap/Modal';
 import { toast } from 'react-toastify';
 import { postCreateNewUser, putUpdateUser } from '../../../services/UserServices'
 import _ from 'lodash'
-
+import { useTranslation } from 'react-i18next';
 
 const ModalCreateUser = (props) => {
+    const { t } = useTranslation();
     const { dataUpdate, setDataUpdate, currentPage, setCurrentPage, isViewUser, setViewUser } = props
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -102,9 +103,9 @@ const ModalCreateUser = (props) => {
             <Modal backdrop="static" show={show} onHide={handleClose} size="xl" className='modal-add-user'>
                 <Modal.Header closeButton>
                     {_.isEmpty(dataUpdate) ?
-                        <Modal.Title>Add New User</Modal.Title>
+                        <Modal.Title>{t('Admin.Manage-Users.Modal.title-add')}</Modal.Title>
                         :
-                        <Modal.Title>Edit User</Modal.Title>
+                        <Modal.Title>{t('Admin.Manage-Users.Modal.title-update')}</Modal.Title>
                     }
 
                 </Modal.Header>
@@ -120,7 +121,7 @@ const ModalCreateUser = (props) => {
                                 onChange={(event) => setEmail(event.target.value)} />
                         </div>
                         <div className="col-md-6">
-                            <label className="form-label">Password</label>
+                            <label className="form-label">{t('Admin.Manage-Users.Modal.passw')}</label>
                             <input
                                 disabled={!_.isEmpty(dataUpdate)}
                                 type="password"
@@ -129,7 +130,7 @@ const ModalCreateUser = (props) => {
                                 onChange={(event) => setPassword(event.target.value)} />
                         </div>
                         <div className="col-md-6">
-                            <label className="form-label">Username</label>
+                            <label className="form-label">{t('Admin.Manage-Users.Username')}</label>
                             <input
                                 type="text"
                                 disabled={isViewUser}
@@ -138,7 +139,7 @@ const ModalCreateUser = (props) => {
                                 onChange={(event) => setUsername(event.target.value)} />
                         </div>
                         <div className="col-md-4">
-                            <label className="form-label">Role</label>
+                            <label className="form-label">{t('Admin.Manage-Users.Role')}</label>
                             <select disabled={isViewUser} id="inputState" className="form-select" onChange={(event) => setRole(event.target.value)} value={role}>
                                 <option value="USER">USER</option>
                                 <option value="ADMIN">ADMIN</option>
@@ -146,7 +147,7 @@ const ModalCreateUser = (props) => {
                         </div>
                         <div className='col-md-12'>
                             <label className="form-label">
-                                Image
+                                {t('Admin.Manage-Users.Modal.image')}
                                 <input
                                     className="form-control"
                                     type="file" id="formFile"
@@ -161,7 +162,7 @@ const ModalCreateUser = (props) => {
 
                                 <img alt="" src={previewImg} />
                                 :
-                                <span>Preview Image</span>
+                                <span>{t('Admin.Manage-Users.Modal.Prev-img')}</span>
                             }
 
 
@@ -169,14 +170,14 @@ const ModalCreateUser = (props) => {
                     </form></Modal.Body>
                 <Modal.Footer>
                     <Button variant="secondary" onClick={handleClose}>
-                        Close
+                        {t('Admin.Manage-Users.Modal.Close')}
                     </Button>
                     {isViewUser
                         ?
                         ''
                         :
                         <Button variant="primary" onClick={_.isEmpty(dataUpdate) ? () => handleSubmitCreateUser() : () => handleSubmitUpdateUser()} >
-                            Save
+                            {t('Admin.Manage-Users.Modal.Save')}
                         </Button>
                     }
 

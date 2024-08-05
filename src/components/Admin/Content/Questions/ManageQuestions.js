@@ -10,9 +10,10 @@ import Lightbox from "react-awesome-lightbox";
 import { getAllQuiz } from "../../../../services/QuizServices";
 import { postCreateNewQuestionForQuiz, postCreateNewAnswerForQuestion } from '../../../../services/QuestionServices';
 import { toast } from 'react-toastify';
-
+import { useTranslation } from 'react-i18next';
 
 const ManageQuestions = () => {
+    const { t } = useTranslation();
     const initQuestion = [
         {
             id: uuidv4(),
@@ -200,11 +201,11 @@ const ManageQuestions = () => {
     return (
         <div className="questions-container">
             <div className="title">
-                Manage Questions
+                {t('Admin.SideBar.manage-question')}
             </div>
             <div className="add-new-questions">
                 <div className='col-6 form-group'>
-                    <label className='mb-2'>Select Quiz:</label>
+                    <label className='mb-2'>{t('Admin.Manage-Question.Select-quiz')}:</label>
                     <Select
                         value={selectedQuiz}
                         onChange={setSelectedQuiz}
@@ -212,7 +213,7 @@ const ManageQuestions = () => {
                     />
                 </div>
                 <div className='mt-3 mb-2'>
-                    Add New Question
+                    {t('Admin.Manage-Question.Add-qs')}
                 </div>
                 {
                     questions && questions.length > 0 &&
@@ -227,13 +228,13 @@ const ManageQuestions = () => {
                                             placeholder="name@example.com"
                                             value={item.description}
                                             onChange={(event) => handleOnChange('QUESTION', item.id, event.target.value)} />
-                                        <label>Question {index + 1}'s description</label>
+                                        <label>{t('Admin.Manage-Question.Question')} {index + 1}{t('Admin.Manage-Question.Description')}</label>
                                     </div>
                                     <div className='more-actions d-flex'>
                                         <label htmlFor={`${item.id}`} className='label-upload d-flex' >
                                             <BiSolidFolderPlus />
                                         </label>
-                                        <span >{item.imageFile ? <span onClick={() => handlePreviewImage(item.id)}> {item.imageName} </span> : '0 file is uploaded'}</span>
+                                        <span >{item.imageFile ? <span onClick={() => handlePreviewImage(item.id)}> {item.imageName} </span> : `0 ${t('Admin.Manage-Question.Upload')}`}</span>
 
                                         <input type="file" id={`${item.id}`} hidden onChange={(event) => handleChangeFile(item.id, event)} />
 
@@ -270,7 +271,7 @@ const ManageQuestions = () => {
                                                         value={answer.description}
                                                         onChange={(event) => handleAnswer('INPUT', answer.id, item.id, event)}
                                                     />
-                                                    <label>Answer {index + 1}</label>
+                                                    <label>{t('Admin.Manage-Question.Answer')} {index + 1}</label>
                                                 </div>
                                                 <div className='btn-add-new-question'>
                                                     <span onClick={() => handleAddRemoveAnswer('ADD', item.id, '')} className='icon-add'>
@@ -295,7 +296,7 @@ const ManageQuestions = () => {
                 {
                     questions && questions.length > 0 &&
                     <div>
-                        <button className='btn btn-warning' onClick={() => handleSubmitQuestion()}>Lưu</button>
+                        <button className='btn btn-warning' onClick={() => handleSubmitQuestion()}>{t('Admin.Manage-Question.Save-qs')}</button>
                     </div>
                 }
                 {

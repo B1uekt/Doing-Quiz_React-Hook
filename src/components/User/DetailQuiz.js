@@ -6,9 +6,12 @@ import './DetailQuiz.scss'
 import Question from './Question';
 import ModalResult from './ModalResult';
 import RightContent from './Content/RightContent';
-
-
+import Breadcrumb from 'react-bootstrap/Breadcrumb';
+import { useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 const DetailQuiz = (props) => {
+    const navigate = useNavigate()
+    const { t } = useTranslation();
     const params = useParams();
     const quizId = params.id;
     const location = useLocation();
@@ -122,44 +125,56 @@ const DetailQuiz = (props) => {
 
 
     return (
+        <>
+            <div className='link-breadcrumb'>
+                <Breadcrumb>
+                    <Breadcrumb.Item onClick={() => navigate('/')}>{t('ListQuiz.Home')}</Breadcrumb.Item>
+                    <Breadcrumb.Item onClick={() => navigate('/users')}>
+                        {t('ListQuiz.List-quiz')}
+                    </Breadcrumb.Item>
+                    <Breadcrumb.Item active>Quiz {quizId}</Breadcrumb.Item>
+                </Breadcrumb>
+            </div>
 
-        <div className="detail-quiz-container d-flex">
-            <div className='left-content'>
-                <div className="title">
-                    Quiz {quizId} : {location?.state.quizTilte}
-                </div>
-                <hr />
-                <div className="q-body">
+            <div className="detail-quiz-container d-flex">
+                <div className='left-content'>
+                    <div className="title">
+                        Quiz {quizId} : {location?.state.quizTilte}
+                    </div>
+                    <hr />
+                    <div className="q-body">
 
+                    </div>
+                    <div className="q-content">
+                        <Question
+                            index={index}
+                            handleCheckBox={handleCheckBox}
+                            data={dataQuiz && dataQuiz.length > 0 ?
+                                dataQuiz[index] : []} />
+                    </div>
+                    <div className="footer d-flex justify-content-center">
+
+                        <button className='btn btn-secondary' onClick={() => handlePrev()}>Prev</button>
+                        <button className='btn btn-primary ' onClick={() => handleNext()}>Next</button>
+                        {+index === dataQuiz.length - 1 &&
+                            <button className='btn btn-warning ' onClick={() => handleFinish()}>Finish</button>
+                        }
+                    </div>
                 </div>
-                <div className="q-content">
-                    <Question
+                <div className="right-content">
+                    <RightContent
+                        dataQuiz={dataQuiz}
                         index={index}
-                        handleCheckBox={handleCheckBox}
-                        data={dataQuiz && dataQuiz.length > 0 ?
-                            dataQuiz[index] : []} />
+                        setIndex={setIndex}
+                        handleFinish={handleFinish} />
                 </div>
-                <div className="footer d-flex justify-content-center">
-
-                    <button className='btn btn-secondary' onClick={() => handlePrev()}>Prev</button>
-                    <button className='btn btn-primary ' onClick={() => handleNext()}>Next</button>
-                    {+index === dataQuiz.length - 1 &&
-                        <button className='btn btn-warning ' onClick={() => handleFinish()}>Finish</button>
-                    }
-                </div>
+                <ModalResult show={isShowModalResult}
+                    setShow={setIsShowModalResult}
+                    dataModalResult={dataModalResult}
+                />
             </div>
-            <div className="right-content">
-                <RightContent
-                    dataQuiz={dataQuiz}
-                    index={index}
-                    setIndex={setIndex}
-                    handleFinish={handleFinish} />
-            </div>
-            <ModalResult show={isShowModalResult}
-                setShow={setIsShowModalResult}
-                dataModalResult={dataModalResult}
-            />
-        </div>
+        </>
     )
+
 }
 export default DetailQuiz

@@ -5,8 +5,9 @@ import { useEffect, useState } from "react";
 import TableUserPaginate from "./TableUserPaginate";
 import { getAllUser, getUserWithPaginate } from "../../../services/UserServices";
 import ModalDeleteUser from "./ModalDeleteUser";
-
+import { useTranslation } from 'react-i18next';
 const ManageUser = (props) => {
+    const { t } = useTranslation();
     const LIMIT_USER = 7;
     const [pageCount, setPageCount] = useState(1);
     const [currentPage, setCurrentPage] = useState(1);
@@ -64,12 +65,12 @@ const ManageUser = (props) => {
     return (
         <div className="manage-user-container">
             <div className="title">
-                Manage User
+                {t('Admin.SideBar.manage-users')}
             </div>
             <div className="users-content">
                 <div className="btn-add-new">
                     <button className="btn btn-primary" onClick={() => handleAddUser(true)}>
-                        <FcPlus /> Add new user
+                        <FcPlus /> {t('Admin.Manage-Users.Add')}
                     </button>
 
                 </div>
