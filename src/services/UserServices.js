@@ -31,4 +31,19 @@ const deleteUser = (userId) => {
 const getUserWithPaginate = (page, limit) => {
     return axios.get(`api/v1/participant?page=${page}&limit=${limit}`)
 }
-export { postCreateNewUser, getAllUser, putUpdateUser, deleteUser, getUserWithPaginate };
+
+const postUpdateProfile = (username, image) => {
+    const data = new FormData();
+    data.append('username', username);
+    data.append('userImage', image);
+    return axios.post('api/v1/profile', data)
+}
+
+const postChangePassword = (current_password, new_password) => {
+    return axios.post(`api/v1/change-password`, { current_password, new_password });
+}
+
+const getHistory = () => {
+    return axios.get('api/v1/history')
+}
+export { postCreateNewUser, getAllUser, putUpdateUser, deleteUser, getUserWithPaginate, postUpdateProfile, postChangePassword, getHistory };
